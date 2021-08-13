@@ -1,0 +1,79 @@
+{
+
+  // See PSP's docs for full config details:
+  // https://docs.adyen.com/payment-methods/google-pay/api-only
+  "adyen": {
+    "environment": "TEST",
+    "apiKey": "",
+    "merchantAccount": "",
+    "clientConfig": {
+      "gateway": "adyen",
+      "gatewayMerchantId": ""
+    }
+  },
+
+  // See PSP's docs for full config details:
+  // https://developer.paypal.com/braintree/docs/guides/google-pay/overview
+  "braintree": {
+    "environment": "Sandbox",
+    "merchantId": "",
+    "publicKey": "",
+    "privateKey": "",
+    "clientConfig": {
+      "gateway": "braintree",
+      "braintree:apiVersion": "v1",
+      "braintree:sdkVersion": "3.76.2",
+      "braintree:merchantId": "",
+      "braintree:clientKey": ""
+    }
+  },
+
+  // See PSP's docs for full config details:
+  // https://docs.checkout.com/payments/payment-methods/wallets/google-pay
+  "checkoutltd": {
+    "secretKey": "",
+    "publicKey": "",
+    "clientConfig": {
+      "gateway": "checkoutltd",
+      "gatewayMerchantId": ""
+    }
+  },
+
+  // See PSP's docs for full config details:
+  // https://docs.cybersource.com/en/payments-tech-docs/googlepay.html
+  // Note the defaults here for cybersource are test values from the cybersource samples/docs
+  "cybersource": {
+    "authenticationType": "http_signature",
+    "runEnvironment": "cybersource.environment.SANDBOX",
+    "merchantID": "",
+    "merchantKeyId": "",
+    "merchantsecretKey": "",
+    "clientConfig": {
+      "gateway": "cybersource",
+      "gatewayMerchantId": ""
+    }
+  },
+
+  // See PSP's docs for full config details:
+  // https://developer.squareup.com/docs/payment-form/add-digital-wallets/google-pay
+  "square": {
+    "environment": "Sandbox",
+    "accessToken": "",
+    "clientConfig": {
+      "applicationId": "",
+      "locationId": ""
+    }
+  },
+
+  // See PSP's docs for full config details:
+  // https://stripe.com/docs/google-pay
+  "stripe": {
+    "secretKey": "",
+    "clientConfig":  {
+      "gateway": "stripe",
+      "stripe:version": "2018-10-31",
+      "stripe:publishableKey": ""
+    }
+  }
+
+}

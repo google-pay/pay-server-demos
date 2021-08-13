@@ -1,0 +1,32 @@
+body {font-family: "Product Sans"; color: #444; text-align: center; font-size: 120%;}
+
+#header {text-align: left; padding: 10px; border-bottom: 2px solid #eee; margin-bottom: 40px;}
+
+#header img {width: 100px; vertical-align: middle; margin-top: -40px;}
+
+#gateways {float: right; margin-right: 30px;}
+
+#container {margin: 0 auto; text-align: left; display: none; width: 900;}
+
+#gpay-container, #quantity-container, #order {display: none;}
+
+label, input {margin-right: 10px;}
+
+input, select {padding: 5px 10px;}
+
+input[type=button], button {cursor: pointer;}
+
+#product, .rhs {display: inline-block; vertical-align: top;}
+
+#product {border-right: 2px solid #eee; padding-right: 40px; margin-right: 40px; height: 500px;}
+
+.rhs {margin-top: -30px;}
+
+#gpay-container {margin-top: 20px;}
+
+#cart img {width: 40px; vertical-align: middle; margin:0 5px 5px 0;}
+
+#cart-details button {float: right; margin:10px 0 0 30px;}
+
+#order-details {font-size:10px; width: 200px;}
+

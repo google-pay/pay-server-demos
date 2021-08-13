@@ -1,0 +1,15 @@
+{
+  "name": "google-pay-psp-client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@adyen/api-library": "^8.1.0",
+    "braintree": "^3.3.0",
+    "checkout-sdk-node": "^1.0.28",
+    "cybersource-rest-client": "0.0.27",
+    "jwk-to-pem": "^2.0.5",
+    "square": "^9.1.0",
+    "stripe": "^8.142.0",
+    "uuid": "^8.3.2"
+  }
+}
