@@ -28,11 +28,14 @@ fs.readdirSync(handlers).forEach(file => {
   module.exports[name] = {
 
     pay: (config, order) => new Promise((resolve, reject) => {
-      const error = (message) => reject({error: message});
 
-      if (isNaN(order.total)) error('invalid order total');
-      if (!order.currency) error('currency not specified');
-      if (!precisions[order.currency]) error('invalid currency specified');
+      const validate = (condition, message) => {if (condition) reject({error: message})};
+
+      validate(typeof config !== 'object', 'config not provided');
+      validate(typeof order !== 'object', 'order not provided');
+      validate(isNaN(order.total), 'order total is not numeric');
+      validate(!precisions[order.currency], 'invalid currency provided');
+      validate(!order.paymentToken, 'paymentToken not provided');
 
       order.totalInt = Number(order.total) * Math.pow(10, precisions[order.currency]);
       order.totalFixed = Number(order.total).toFixed(precisions[order.currency]);

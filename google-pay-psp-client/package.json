@@ -11,5 +11,11 @@
     "square": "^9.1.0",
     "stripe": "^8.142.0",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
