@@ -30,5 +30,13 @@ module.exports = (config, order) => {
   return gateway.transaction.sale({
     amount: String(order.totalFixed),
     paymentMethodNonce: order.paymentToken.androidPayCards[0].nonce,
+  }).then(response => {
+    return new Promise((resolve, reject) => {
+      if (response.success) {
+        resolve(response);
+      } else {
+        reject(response);
+      }
+    });
   });
 };
