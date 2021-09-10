@@ -162,7 +162,7 @@ function onGooglePayButtonClick() {
   const paymentRequest = Object.assign({}, googlePayBaseConfiguration);
   paymentRequest.transactionInfo = {
     totalPriceStatus: 'FINAL',
-    totalPrice: String(cartTotal),
+    totalPrice: String(cartTotal.toFixed(2)),
     currencyCode: 'USD',
     countryCode: 'US',
   };
