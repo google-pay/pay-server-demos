@@ -20,48 +20,53 @@ function onGooglePayButtonClick() {
   return false;
 }
 
-function showGooglePayButton() {
+function removeGooglePayButton() {
+  const gPayContainer = el('gpay-container');
+  if (gPayContainer.children.length === 0) return;
+ 
+  gPayContainer.removeChild(gPayContainer.firstChild);
+}
+
+async function showGooglePayButton() {
 
   const config = googlePayBaseConfiguration.allowedPaymentMethods[0]
         .tokenizationSpecification.parameters;
 
-  const paymentForm = new SqPaymentForm({
-    applicationId: config.applicationId,
-    locationId: config.locationId,
-    googlePay: {elementId: 'gpay-container'},
-    callbacks: {
+  const payments = Square.payments(config.applicationId, config.locationId);
 
-      cardNonceResponseReceived: (errors, nonce, cardData) => {
-        if (errors) {
-          errors.forEach(console.error);
-        } else {
-          onGooglePayPaymentLoaded(JSON.stringify(nonce));
-        }
-      },
-
-      methodsSupported: (methods, unsupportedReason) => {
-        if (methods.googlePay === true) {
-          el('gpay-container').style.display = 'block';
-        } else if (methods.googlePay === false) {
-          console.error(unsupportedReason);
-        }
-      },
-
-      createPaymentRequest: () => {
-        return {
-          currencyCode: "USD",
-          countryCode: "US",
-          total: {
-            amount: String(cartTotal),
-            pending: false
-          },
-        };
-      },
-
+  const lineItems = Object.keys(cart).map(title => {
+    return {
+      amount: String(products[title].price * cart[title]),
+      label: title,
+      pending: false
     }
-  });
+  })
 
-  paymentForm.build();
+  const request = payments.paymentRequest({
+    countryCode: 'US',
+    currencyCode: 'USD',
+    lineItems,
+    total: {
+      label: 'Total',
+      amount: String(parseFloat(cartTotal).toFixed(2)),
+      pending: false
+    },
+  });
+  const googlePay = await payments.googlePay(request);
+
+  async function tokenize() {
+    const result = await googlePay.tokenize();
+    onGooglePayPaymentLoaded(JSON.stringify(result.token));
+    el('gpay-container').removeEventListener('click', tokenize);
+    removeGooglePayButton()
+  }
+
+  removeGooglePayButton();
+  el('gpay-container').style.display = 'block';
+  googlePay.attach('#gpay-container');
+
+  el('gpay-container').addEventListener('click', tokenize);
+  
 }
 
-loadScript('https://js.squareupsandbox.com/v2/paymentform');
+loadScript('https://sandbox.web.squarecdn.com/v1/square.js');
