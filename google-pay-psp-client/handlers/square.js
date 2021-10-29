@@ -17,6 +17,13 @@
 const square = require('square');
 const uuid = require('uuid');
 
+function parseBody(response) {
+  try {
+    return JSON.parse(response.body);
+  } catch {}
+  return response;
+}
+
 module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://developer.squareup.com/reference/square/payments-api/create-payment
@@ -33,5 +40,5 @@ module.exports = (config, order) => {
       amount: order.totalInt,
       currency: order.currency.toUpperCase(),
     },
-  });
+  }).then(parseBody).catch(parseBody);
 };
