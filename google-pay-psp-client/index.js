@@ -41,7 +41,10 @@ fs.readdirSync(handlers).forEach(file => {
       order.totalFixed = Number(order.total).toFixed(precisions[order.currency]);
 
       if (typeof order.paymentToken === 'string') {
-        order.paymentToken = JSON.parse(order.paymentToken);
+        try {
+          const paymentToken = JSON.parse(order.paymentToken);
+          order.paymentToken = paymentToken;
+        } catch {}
       }
 
       return resolve(handler(config, order));
