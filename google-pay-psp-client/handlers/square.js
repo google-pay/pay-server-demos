@@ -40,5 +40,14 @@ module.exports = (config, order) => {
       amount: order.totalInt,
       currency: order.currency.toUpperCase(),
     },
-  }).then(parseBody).catch(parseBody);
+  })
+  .then(parseBody)
+  .catch(parseBody)
+  .then(response => {
+    if (!response.errors) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(response);
+    }
+  });
 };

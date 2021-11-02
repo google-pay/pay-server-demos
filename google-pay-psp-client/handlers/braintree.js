@@ -31,12 +31,10 @@ module.exports = (config, order) => {
     amount: String(order.totalFixed),
     paymentMethodNonce: order.paymentToken.androidPayCards[0].nonce,
   }).then(response => {
-    return new Promise((resolve, reject) => {
-      if (response.success) {
-        resolve(response);
-      } else {
-        reject(response);
-      }
-    });
+    if (response.success) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(response);
+    }
   });
 };
