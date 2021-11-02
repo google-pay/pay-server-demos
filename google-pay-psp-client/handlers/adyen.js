@@ -25,7 +25,7 @@ module.exports = (config, order) => {
   adyenConfig.apiKey = config.apiKey;
   adyenConfig.merchantAccount = config.merchantAccount;
 
-  const client = new adyen.Client({adyenConfig});
+  const client = new adyen.Client({config: adyenConfig});
   client.setEnvironment(config.environment);
 
   const checkout = new adyen.CheckoutAPI(client);
