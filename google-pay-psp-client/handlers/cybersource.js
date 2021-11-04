@@ -16,6 +16,13 @@
 
 const cybersource = require('cybersource-rest-client');
 
+// Patch logging, per:
+// https://github.com/CyberSource/cybersource-rest-client-node/issues/66
+const winston = require('winston');
+cybersource.Logger.getLogger = () => winston.createLogger({
+  transports: [new winston.transports.Console({silent: true})]
+});
+
 module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://docs.cybersource.com/en/payments-tech-docs/googlepay.html
