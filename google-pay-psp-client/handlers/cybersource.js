@@ -15,7 +15,7 @@
  */
 
 const cybersource = require("cybersource-rest-client");
-const { getLogger } = require("../patch-logger");
+const { getLogger } = require("../utils/patch-logger");
 
 module.exports = (config, order) => {
   // See PSP's docs for full API details:
