@@ -66,6 +66,7 @@ clients.braintree.pay(config, order).then(response => {
 - Cybersource
 - Square
 - Stripe
+- Datatrans
 
 Don't see your PSP here? Feel free to contribute an integration example using
 the steps below.
