@@ -74,6 +74,17 @@
       "stripe:version": "2018-10-31",
       "stripe:publishableKey": ""
     }
-  }
+  },
+
+  // See PSP's docs for full config details:
+  // https://docs.datatrans.ch/docs/payment-methods#section-google-pay
+  "datatrans": {
+      "environment": "sandbox",
+      "apiKey": "",
+      "clientConfig": {
+        "gateway": "datatrans",
+        "gatewayMerchantId": ""
+      }
+    }
 
 }

@@ -12,7 +12,9 @@
     "stripe": "^8.142.0",
     "uuid": "^8.3.2",
     "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^4.5.5"
+    "winston-daily-rotate-file": "^4.5.5",
+    "node-fetch": "^3.1.0",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "jest": "^27.0.6"

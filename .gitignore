@@ -65,6 +65,9 @@ node_modules/
 # Yarn Integrity file
 .yarn-integrity
 
+# IntelliJ's project specific settings files
+.idea
+
 # dotenv environment variables file
 .env
 
