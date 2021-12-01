@@ -80,7 +80,7 @@
   // https://docs.datatrans.ch/docs/payment-methods#section-google-pay
   "datatrans": {
     "environment": "sandbox",
-    "apiKey": "",
+    "password": "",
     "clientConfig": {
       "gateway": "datatrans",
       "gatewayMerchantId": ""

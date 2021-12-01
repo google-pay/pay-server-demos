@@ -11,7 +11,7 @@ module.exports = (config, order) => {
   };
 
   const host = config.environment === 'sandbox' ? 'api.sandbox' : 'api';
-  const auth = Buffer.from(`${config.clientConfig.gatewayMerchantId}:${config.apiKey}`).toString('base64');
+  const auth = Buffer.from(`${config.clientConfig.gatewayMerchantId}:${config.password}`).toString('base64');
 
   return fetch(`https://${host}.datatrans.com/v1/transactions/authorize`, {
     method: "POST",
