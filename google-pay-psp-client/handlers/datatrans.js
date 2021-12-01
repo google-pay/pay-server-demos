@@ -1,5 +1,5 @@
 const shortid = require('shortid');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = require('node-fetch');
 
 module.exports = (config, order) => {
 
