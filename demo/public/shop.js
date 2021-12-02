@@ -16,6 +16,7 @@
 
 // Stores product names mapped to quantities.
 let cart = JSON.parse(localStorage.getItem('cart') || '{}');
+let cartTotal = 0;
 
 // Stores all the available products on page load, retrieved from products.json
 const products = {};
@@ -35,8 +36,8 @@ const googlePayBaseConfiguration = {
     {
       type: 'CARD',
       parameters: {
-        allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-        allowedCardNetworks: ["AMEX", "DISCOVER", "INTERAC", "JCB", "MASTERCARD", "VISA"],
+        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+        allowedCardNetworks: ['AMEX', 'DISCOVER', 'INTERAC', 'JCB', 'MASTERCARD', 'VISA'],
       },
       tokenizationSpecification: {
         type: 'PAYMENT_GATEWAY',
@@ -51,7 +52,7 @@ const googlePayBaseConfiguration = {
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
-  currency: 'USD'
+  currency: 'USD',
 });
 
 function el(id) {
@@ -62,7 +63,7 @@ function jsonBody(body) {
   return {
     method: 'POST',
     body: JSON.stringify(body),
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
   };
 }
 
@@ -101,7 +102,7 @@ function showCart() {
       ${cart[title]} x ${title}
       <button onclick="removeProduct('${title}');">x</button>
       <br>`;
-  })
+  });
   details.innerHTML += cartTotal > 0 ? `<br>Total: ${currencyFormatter.format(cartTotal)}` : 'Cart is empty';
 }
 
@@ -143,12 +144,12 @@ function loadScript(src) {
   document.getElementsByTagName('head')[0].appendChild(script);
 }
 
-const googlePayClient = new google.payments.api.PaymentsClient({environment: googlePayEnv});
+const googlePayClient = new google.payments.api.PaymentsClient({ environment: googlePayEnv });
 
 function onGooglePayIsReadyToPay(response) {
   if (response.result) {
     const googlePayButton = googlePayClient.createButton({
-      onClick: () => onGooglePayButtonClick() // must be wrapped so can be overridden
+      onClick: () => onGooglePayButtonClick(), // must be wrapped so can be overridden
     });
     el('gpay-container').appendChild(googlePayButton);
   }
@@ -176,58 +177,51 @@ function onGooglePayButtonClick() {
 // server-side payment gateway.
 function onGooglePayPaymentLoaded(paymentToken) {
   console.log('paymentToken received', JSON.parse(paymentToken));
-  fetchJson(`/gateways/${gateway}/orders`, jsonBody({paymentToken: paymentToken, cart: cart}))
-    .then(response => {
-      removeAllProducts();
-      el('cart').style.display = 'none';
-      el('order').style.display = 'inline-block';
-      el('order-details').innerHTML = JSON.stringify(response, null, 2);
-    });
+  fetchJson(`/gateways/${gateway}/orders`, jsonBody({ paymentToken: paymentToken, cart: cart })).then(response => {
+    removeAllProducts();
+    el('cart').style.display = 'none';
+    el('order').style.display = 'inline-block';
+    el('order-details').innerHTML = JSON.stringify(response, null, 2);
+  });
 }
 
 function loadShop() {
-
   el('container').style.display = 'inline-block';
   el('products').addEventListener('change', showProduct);
   el('add').addEventListener('click', addProduct);
   el('clear').addEventListener('click', removeAllProducts);
   el('checkout').addEventListener('click', () => showGooglePayButton());
 
-  fetchJson('/products.json')
-    .then(response => {
-      Object.assign(products, response);
-      addSelectOptions(el('products'), Object.keys(products));
-      showCart();
-    });
+  fetchJson('/products.json').then(response => {
+    Object.assign(products, response);
+    addSelectOptions(el('products'), Object.keys(products));
+    showCart();
+  });
 
-  fetchJson(`/gateways/${gateway}?script=true`)
-    .then(response => {
-      console.log('gateway config loaded', response);
-      if (response.script) {
-        loadScript(`/handlers/${gateway}.js`);
-      }
-      delete response.script;
-      googlePayBaseConfiguration.allowedPaymentMethods[0]
-        .tokenizationSpecification.parameters = response;
-      googlePayClient
-        .isReadyToPay(googlePayBaseConfiguration)
-        .then((response) => onGooglePayIsReadyToPay(response))
-        .catch(console.error);
-    });
-
+  fetchJson(`/gateways/${gateway}?script=true`).then(response => {
+    console.log('gateway config loaded', response);
+    if (response.script) {
+      loadScript(`/handlers/${gateway}.js`);
+    }
+    delete response.script;
+    googlePayBaseConfiguration.allowedPaymentMethods[0].tokenizationSpecification.parameters = response;
+    googlePayClient
+      .isReadyToPay(googlePayBaseConfiguration)
+      .then(response => onGooglePayIsReadyToPay(response))
+      .catch(console.error);
+  });
 }
 
 window.addEventListener('load', () => {
-  fetchJson('/gateways/')
-    .then(response => {
-      const select = el('gateways');
-      addSelectOptions(select, response);
-      select.addEventListener('change', e => {
-        location.search = e.target.selectedIndex > 0 ? e.target[e.target.selectedIndex].value : '';
-      });
-      select.selectedIndex = response.sort().indexOf(gateway) + 1;
-      if (select.selectedIndex > 0) {
-        loadShop();
-      }
+  fetchJson('/gateways/').then(response => {
+    const select = el('gateways');
+    addSelectOptions(select, response);
+    select.addEventListener('change', e => {
+      location.search = e.target.selectedIndex > 0 ? e.target[e.target.selectedIndex].value : '';
     });
+    select.selectedIndex = response.sort().indexOf(gateway) + 1;
+    if (select.selectedIndex > 0) {
+      loadShop();
+    }
+  });
 });

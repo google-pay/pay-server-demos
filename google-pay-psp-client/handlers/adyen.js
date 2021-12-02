@@ -25,7 +25,7 @@ module.exports = (config, order) => {
   adyenConfig.apiKey = config.apiKey;
   adyenConfig.merchantAccount = config.merchantAccount;
 
-  const client = new adyen.Client({config: adyenConfig});
+  const client = new adyen.Client({ config: adyenConfig });
   client.setEnvironment(config.environment);
 
   const checkout = new adyen.CheckoutAPI(client);
@@ -37,7 +37,7 @@ module.exports = (config, order) => {
     },
     paymentMethod: {
       type: 'paywithgoogle', // signifies Google Pay being used
-      googlePayToken: JSON.stringify(order.paymentToken)
+      googlePayToken: JSON.stringify(order.paymentToken),
     },
     reference: uuid.v4(),
     merchantAccount: config.merchantAccount,

@@ -2,11 +2,23 @@
   "name": "pay-server-demos",
   "version": "0.0.1",
   "main": "app.js",
+  "scripts": {
+    "lint": "npm run pretty:check && npm run eslint",
+    "eslint": "eslint .",
+    "pretty:check": "prettier . --check",
+    "pretty": "prettier . --write --loglevel warn"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "google-pay-psp-client": "file:google-pay-psp-client",
     "strip-json-comments": "^3.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.3.0",
+    "prettier": "^2.5.0"
   }
 }

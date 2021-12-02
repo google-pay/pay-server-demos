@@ -9,7 +9,6 @@ jobs:
     name: publish to npm
     runs-on: ubuntu-latest
     steps:
-
       - name: configure wombat dressing repository
         uses: actions/setup-node@v1
         with:

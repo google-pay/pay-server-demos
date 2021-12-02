@@ -27,14 +27,16 @@ module.exports = (config, order) => {
     privateKey: config.privateKey,
   });
 
-  return gateway.transaction.sale({
-    amount: String(order.totalFixed),
-    paymentMethodNonce: order.paymentToken.androidPayCards[0].nonce,
-  }).then(response => {
-    if (response.success) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  });
+  return gateway.transaction
+    .sale({
+      amount: String(order.totalFixed),
+      paymentMethodNonce: order.paymentToken.androidPayCards[0].nonce,
+    })
+    .then(response => {
+      if (response.success) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };

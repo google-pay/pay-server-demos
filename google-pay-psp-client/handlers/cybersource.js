@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-const cybersource = require("cybersource-rest-client");
-const { getLogger } = require("../utils/patch-logger");
+const cybersource = require('cybersource-rest-client');
+const { getLogger } = require('../utils/patch-logger');
 
 module.exports = (config, order) => {
   // See PSP's docs for full API details:
@@ -32,12 +32,12 @@ module.exports = (config, order) => {
       merchantsecretKey: config.merchantsecretKey,
       enableLog: false,
     },
-    new cybersource.ApiClient()
+    new cybersource.ApiClient(),
   );
 
   const paymentRequest = {
     processingInformation: {
-      paymentSolution: "012", // signifies Google Pay being used
+      paymentSolution: '012', // signifies Google Pay being used
     },
     orderInformation: {
       amountDetails: {
@@ -47,9 +47,7 @@ module.exports = (config, order) => {
     },
     paymentInformation: {
       fluidData: {
-        value: Buffer.from(JSON.stringify(order.paymentToken)).toString(
-          "base64"
-        ),
+        value: Buffer.from(JSON.stringify(order.paymentToken)).toString('base64'),
       },
     },
   };

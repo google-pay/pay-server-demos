@@ -21,38 +21,39 @@ const precisions = require('./precisions.js');
 const handlers = path.resolve(__dirname, 'handlers');
 
 fs.readdirSync(handlers).forEach(file => {
-
-  const name = file.split('.')[0]
+  const name = file.split('.')[0];
   const handler = require(path.resolve(handlers, name));
 
   module.exports[name] = {
+    pay: (config, order) =>
+      new Promise((resolve, reject) => {
+        const validate = (condition, message) => {
+          if (condition) reject({ error: message });
+        };
 
-    pay: (config, order) => new Promise((resolve, reject) => {
+        validate(typeof config !== 'object', 'config not provided');
+        validate(typeof order !== 'object', 'order not provided');
+        validate(isNaN(order.total), 'order total is not numeric');
+        validate(!precisions[order.currency], 'invalid currency provided');
+        validate(!order.paymentToken, 'paymentToken not provided');
 
-      const validate = (condition, message) => {if (condition) reject({error: message})};
+        order.totalInt = Number(order.total) * Math.pow(10, precisions[order.currency]);
+        order.totalFixed = Number(order.total).toFixed(precisions[order.currency]);
 
-      validate(typeof config !== 'object', 'config not provided');
-      validate(typeof order !== 'object', 'order not provided');
-      validate(isNaN(order.total), 'order total is not numeric');
-      validate(!precisions[order.currency], 'invalid currency provided');
-      validate(!order.paymentToken, 'paymentToken not provided');
+        if (typeof order.paymentToken === 'string') {
+          try {
+            const paymentToken = JSON.parse(order.paymentToken);
+            order.paymentToken = paymentToken;
+          } catch (ex) {
+            // handle error as required
+          }
+        }
 
-      order.totalInt = Number(order.total) * Math.pow(10, precisions[order.currency]);
-      order.totalFixed = Number(order.total).toFixed(precisions[order.currency]);
+        return resolve(handler(config, order));
+      }),
 
-      if (typeof order.paymentToken === 'string') {
-        try {
-          const paymentToken = JSON.parse(order.paymentToken);
-          order.paymentToken = paymentToken;
-        } catch {}
-      }
-
-      return resolve(handler(config, order));
-    }),
-
-    stringify: (object) => {
+    stringify: object => {
       return JSON.stringify(object, (k, v) => (typeof v === 'bigint' ? Number(v) : v));
-    }
-
+    },
   };
 });

@@ -27,14 +27,16 @@ const relativePath = (...parts) => path.resolve(__dirname, ...parts);
 
 const app = express();
 app.use(express.static(relativePath('public')));
-app.use(cors({origin: process.env.PAY_DEMO_CORS_ACCESS_LIST}));
+app.use(cors({ origin: process.env.PAY_DEMO_CORS_ACCESS_LIST }));
 app.use(bodyParser.json());
 
 // return a list of gateways
 app.get('/gateways/', (req, res) => {
-  res.send(Object.keys(configs).filter(name => {
-    return configs[name].clientConfig != undefined;
-  }));
+  res.send(
+    Object.keys(configs).filter(name => {
+      return configs[name].clientConfig != undefined;
+    }),
+  );
 });
 
 // return client-side config for a gateway
@@ -52,12 +54,11 @@ app.get('/gateways/:gateway', (req, res) => {
       config.script = script;
     }
     res.send(config);
-  })
+  });
 });
 
 // make a payment for a gateway
 app.post('/gateways/:gateway/orders', (req, res) => {
-
   // Create the order object passed to the handler.
   // NOTE: Cart total gets calculated here, not
   // client-side since doing so could be manipulated.
@@ -78,12 +79,14 @@ app.post('/gateways/:gateway/orders', (req, res) => {
     return;
   }
 
-  client.pay(config, order).then(response => {
-    res.send(client.stringify(response));
-  }).catch(err => {
-    res.status(500).send(client.stringify(err));
-  });
-
+  client
+    .pay(config, order)
+    .then(response => {
+      res.send(client.stringify(response));
+    })
+    .catch(err => {
+      res.status(500).send(client.stringify(err));
+    });
 });
 
 app.listen(3000);
