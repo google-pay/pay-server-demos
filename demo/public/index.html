@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<!--
+  <!--
 
  Copyright 2021 Google Inc. All Rights Reserved.
 
@@ -17,46 +17,54 @@
  limitations under the License.
 
 -->
-<head>
-<title>Google Pay / PSP Demo</title>
-<script src="https://pay.google.com/gp/p/js/pay.js"></script>
-<script src="shop.js"></script>
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700%7CGoogle+Sans:400,500%7CGoogle+Sans+Text:400,700%7CProduct+Sans:400" />
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <title>Google Pay / PSP Demo</title>
+    <script src="https://pay.google.com/gp/p/js/pay.js"></script>
+    <script src="shop.js"></script>
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700%7CGoogle+Sans:400,500%7CGoogle+Sans+Text:400,700%7CProduct+Sans:400"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <select id="gateways">
+      <option>Choose gateway</option>
+    </select>
 
-<select id="gateways"><option>Choose gateway</option></select>
+    <h1 id="header">
+      <img
+        src="https://lh3.googleusercontent.com/cRtUh8iAq4OZRgAyk8w2afb6wZ68dd1grKIzIRS92JpiqCtvHcVFU7YDcyvAtVVbA-vV5UAtMFtjX40w9D4Ssh_94DZSX5h4lrnf6qg"
+      />
+    </h1>
 
-<h1 id="header"><img src="https://lh3.googleusercontent.com/cRtUh8iAq4OZRgAyk8w2afb6wZ68dd1grKIzIRS92JpiqCtvHcVFU7YDcyvAtVVbA-vV5UAtMFtjX40w9D4Ssh_94DZSX5h4lrnf6qg"></h1>
+    <div id="container">
+      <div id="product">
+        <label for="products">Product: </label>
+        <select id="products">
+          <option>Choose</option>
+        </select>
+        <h2 id="title"></h2>
+        <img src="" id="image" />
+        <p id="price"></p>
+        <div id="quantity-container">
+          <label for="quantity">Quantity: </label><input type="number" id="quantity" value="1" />
+          <input type="button" id="add" value="Add" />
+        </div>
+      </div>
 
-<div id="container">
+      <div id="cart" class="rhs">
+        <h2>Cart:</h2>
+        <p id="cart-details"></p>
+        <input type="button" id="clear" value="Clear" />
+        <input type="button" id="checkout" value="Checkout" />
+        <div id="gpay-container"></div>
+      </div>
 
-<div id="product">
-  <label for="products">Product: </label>
-  <select id="products"><option>Choose</option></select>
-  <h2 id="title"></h2>
-  <img src="" id="image">
-  <p id="price"></p>
-  <div id="quantity-container">
-    <label for="quantity">Quantity: </label><input type="number" id="quantity" value="1">
-    <input type="button" id="add" value="Add">
-  </div>
-</div>
-
-<div id="cart" class="rhs">
-  <h2>Cart:</h2>
-  <p id="cart-details"></p>
-  <input type="button" id="clear" value="Clear">
-  <input type="button" id="checkout" value="Checkout">
-  <div id="gpay-container"></div>
-</div>
-
-<div id="order" class="rhs">
-  <h2>Order complete:</h2>
-  <pre id="order-details"></pre>
-</div>
-
-</div>
-</body>
+      <div id="order" class="rhs">
+        <h2>Order complete:</h2>
+        <pre id="order-details"></pre>
+      </div>
+    </div>
+  </body>
 </html>

@@ -23,14 +23,12 @@ function onGooglePayButtonClick() {
 function removeGooglePayButton() {
   const gPayContainer = el('gpay-container');
   if (gPayContainer.children.length === 0) return;
- 
+
   gPayContainer.removeChild(gPayContainer.firstChild);
 }
 
 async function showGooglePayButton() {
-
-  const config = googlePayBaseConfiguration.allowedPaymentMethods[0]
-        .tokenizationSpecification.parameters;
+  const config = googlePayBaseConfiguration.allowedPaymentMethods[0].tokenizationSpecification.parameters;
 
   const payments = Square.payments(config.applicationId, config.locationId);
 
@@ -38,9 +36,9 @@ async function showGooglePayButton() {
     return {
       amount: String(products[title].price * cart[title]),
       label: title,
-      pending: false
-    }
-  })
+      pending: false,
+    };
+  });
 
   const request = payments.paymentRequest({
     countryCode: 'US',
@@ -49,7 +47,7 @@ async function showGooglePayButton() {
     total: {
       label: 'Total',
       amount: String(parseFloat(cartTotal).toFixed(2)),
-      pending: false
+      pending: false,
     },
   });
   const googlePay = await payments.googlePay(request);
@@ -58,7 +56,7 @@ async function showGooglePayButton() {
     const result = await googlePay.tokenize();
     onGooglePayPaymentLoaded(JSON.stringify(result.token));
     el('gpay-container').removeEventListener('click', tokenize);
-    removeGooglePayButton()
+    removeGooglePayButton();
   }
 
   removeGooglePayButton();
@@ -66,7 +64,6 @@ async function showGooglePayButton() {
   googlePay.attach('#gpay-container');
 
   el('gpay-container').addEventListener('click', tokenize);
-  
 }
 
 loadScript('https://sandbox.web.squarecdn.com/v1/square.js');

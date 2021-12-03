@@ -21,16 +21,18 @@ module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://docs.checkout.com/payments/payment-methods/wallets/google-pay
 
-  const checkout = new Checkout(config.secretKey, {pk: config.publicKey});
+  const checkout = new Checkout(config.secretKey, { pk: config.publicKey });
 
-  return checkout.tokens.request({
-    token_data: order.paymentToken,
-  }).then(response => {
-    return checkout.payments.request({
-      source: {token: response.token},
-      currency: order.currency.toUpperCase(),
-      amount: order.totalInt,
-      reference: uuid.v4(),
+  return checkout.tokens
+    .request({
+      token_data: order.paymentToken,
+    })
+    .then(response => {
+      return checkout.payments.request({
+        source: { token: response.token },
+        currency: order.currency.toUpperCase(),
+        amount: order.totalInt,
+        reference: uuid.v4(),
+      });
     });
-  });
 };

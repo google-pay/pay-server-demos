@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "extends": ["eslint:recommended", "prettier"],
+  "rules": {
+    "comma-dangle": ["error", "always-multiline"],
+    "no-unused-vars": ["warn", { "args": "none" }],
+    "require-jsdoc": "off",
+    "quotes": ["error", "single"]
+  },
+  "overrides": [
+    {
+      "files": ["*.test.js"],
+      "extends": ["plugin:jest/recommended"],
+      "rules": {
+        "jest/valid-title": "off"
+      }
+    }
+  ]
+}

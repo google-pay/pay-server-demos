@@ -169,5 +169,5 @@ module.exports = {
   ZAR: 2,
   ZMK: 2,
   ZMW: 2,
-  ZWD: 2
+  ZWD: 2,
 };

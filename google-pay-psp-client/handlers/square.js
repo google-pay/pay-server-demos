@@ -20,7 +20,9 @@ const uuid = require('uuid');
 function parseBody(response) {
   try {
     return JSON.parse(response.body);
-  } catch {}
+  } catch (ex) {
+    // handle error as required
+  }
   return response;
 }
 
@@ -33,21 +35,22 @@ module.exports = (config, order) => {
     accessToken: config.accessToken,
   });
 
-  return client.paymentsApi.createPayment({
-    sourceId: order.paymentToken,
-    idempotencyKey: uuid.v4(),
-    amountMoney: {
-      amount: order.totalInt,
-      currency: order.currency.toUpperCase(),
-    },
-  })
-  .then(parseBody)
-  .catch(parseBody)
-  .then(response => {
-    if (!response.errors) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  });
+  return client.paymentsApi
+    .createPayment({
+      sourceId: order.paymentToken,
+      idempotencyKey: uuid.v4(),
+      amountMoney: {
+        amount: order.totalInt,
+        currency: order.currency.toUpperCase(),
+      },
+    })
+    .then(parseBody)
+    .catch(parseBody)
+    .then(response => {
+      if (!response.errors) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };

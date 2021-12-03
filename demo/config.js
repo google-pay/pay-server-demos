@@ -24,13 +24,18 @@ const path = require('path');
 // braintree.clientConfig.braintree:apiVersion becomes BRAINTREE_CLIENT_CONFIG_BRAINTREE_API_VERSION
 function configOrEnvVars(config, path) {
   Object.keys(config).forEach(k => {
-    const thisPath = (path ? path + '_' : '') + k.replace(/[A-Z]/g, s => '_' + s.toLowerCase()).replace(/[^\w]/g, '_').toUpperCase();
+    const thisPath =
+      (path ? path + '_' : '') +
+      k
+        .replace(/[A-Z]/g, s => '_' + s.toLowerCase())
+        .replace(/[^\w]/g, '_')
+        .toUpperCase();
     const type = typeof config[k];
     config[k] = type === 'object' ? configOrEnvVars(config[k], thisPath) : config[k] || process.env[thisPath];
     if (typeof config[k] != type) {
       config[k] = JSON.parse(config[k]);
     }
-  })
+  });
   return config;
 }
 
