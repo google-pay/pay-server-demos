@@ -3,7 +3,7 @@
   // See PSP's docs for full config details:
   // https://docs.adyen.com/payment-methods/google-pay/api-only
   "adyen": {
-    "environment": "TEST",
+    "environment": "TEST", // change for production
     "apiKey": "",
     "merchantAccount": "",
     "clientConfig": {
@@ -15,7 +15,7 @@
   // See PSP's docs for full config details:
   // https://developer.paypal.com/braintree/docs/guides/google-pay/overview
   "braintree": {
-    "environment": "Sandbox",
+    "environment": "Sandbox", // change for production
     "merchantId": "",
     "publicKey": "",
     "privateKey": "",
@@ -43,8 +43,7 @@
   // https://docs.cybersource.com/en/payments-tech-docs/googlepay.html
   // Note the defaults here for cybersource are test values from the cybersource samples/docs
   "cybersource": {
-    "authenticationType": "http_signature",
-    "runEnvironment": "cybersource.environment.SANDBOX",
+    "runEnvironment": "cybersource.environment.SANDBOX", // change for production
     "merchantID": "",
     "merchantKeyId": "",
     "merchantsecretKey": "",
@@ -57,7 +56,7 @@
   // See PSP's docs for full config details:
   // https://developer.squareup.com/docs/payment-form/add-digital-wallets/google-pay
   "square": {
-    "environment": "Sandbox",
+    "environment": "Sandbox", // change for production
     "accessToken": "",
     "clientConfig": {
       "applicationId": "",
@@ -79,10 +78,23 @@
   // See PSP's docs for full config details:
   // https://docs.datatrans.ch/docs/payment-methods#section-google-pay
   "datatrans": {
-    "environment": "sandbox",
+    "environment": "sandbox", // change for production
     "password": "",
     "clientConfig": {
       "gateway": "datatrans",
+      "gatewayMerchantId": ""
+    }
+  },
+
+  // See PSP's docs for full config details:
+  // https://github.com/payeezy/get_started_with_payeezy
+  "payeezy": {
+    "host": "api-cert.payeezy.com", // change for production
+    "apiKey": "",
+    "apiSecret": "",
+    "merchantToken": "",
+    "clientConfig": {
+      "gateway": "firstdata",
       "gatewayMerchantId": ""
     }
   }

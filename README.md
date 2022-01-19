@@ -64,9 +64,10 @@ clients.braintree
 - Braintree
 - Checkout.com
 - Cybersource
+- Datatrans
+- Payeezy (Fiserv / First Data)
 - Square
 - Stripe
-- Datatrans
 
 Don't see your PSP here? Feel free to contribute an integration example using the steps below.
 

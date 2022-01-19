@@ -8,13 +8,14 @@
     "checkout-sdk-node": "^1.0.28",
     "cybersource-rest-client": "0.0.27",
     "jwk-to-pem": "^2.0.5",
+    "node-fetch": "^2.6.6",
+    "payeezy": "^1.0.4",
+    "shortid": "^2.2.16",
     "square": "^9.1.0",
     "stripe": "^8.142.0",
     "uuid": "^8.3.2",
     "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^4.5.5",
-    "node-fetch": "^2.6.6",
-    "shortid": "^2.2.16"
+    "winston-daily-rotate-file": "^4.5.5"
   },
   "devDependencies": {
     "jest": "^27.0.6"

@@ -85,6 +85,7 @@ app.post('/gateways/:gateway/orders', (req, res) => {
       res.send(client.stringify(response));
     })
     .catch(err => {
+      console.error(err);
       res.status(500).send(client.stringify(err));
     });
 });

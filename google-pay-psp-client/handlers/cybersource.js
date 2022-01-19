@@ -25,7 +25,7 @@ module.exports = (config, order) => {
 
   const client = new cybersource.PaymentsApi(
     {
-      authenticationType: config.authenticationType,
+      authenticationType: 'http_signature',
       runEnvironment: config.runEnvironment,
       merchantID: config.merchantID,
       merchantKeyId: config.merchantKeyId,
