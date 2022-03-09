@@ -23,14 +23,10 @@ PSP.
 
 The `google-pay-psp-client` directory contains a client library that wraps each of the PSP server-side integrations.
 
-**Setup:**
-
-- `npm install google-pay-psp-client`
-
 **Example:**
 
 ```js
-const clients = require('google-pay-psp-client');
+const clients = require('./google-pay-psp-client');
 
 // PSP-specific configuration, in this case Braintree.
 const config = {
