@@ -1,0 +1,7 @@
+tasks:
+- init: npm install
+  command: node demo/app.js
+
+ports:
+- port: 8080
+  onOpen: open-browser
