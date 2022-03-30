@@ -32,6 +32,11 @@ function configOrEnvVars(config, path) {
         .toUpperCase();
     const type = typeof config[k];
     config[k] = type === 'object' ? configOrEnvVars(config[k], thisPath) : config[k] || process.env[thisPath];
+    
+    if(config[k] === undefined) {
+      // variable not define in config.json or as ENV variable
+      throw new Error(k + " is NOT set");
+    }
     if (typeof config[k] != type) {
       config[k] = JSON.parse(config[k]);
     }
