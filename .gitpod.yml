@@ -1,0 +1,12 @@
+tasks:
+- init: npm install
+  command: |
+        if [ -z ${ADYEN_API_KEY+x} ] || [[ -z ${ADYEN_MERCHANT_ACCOUNT+x} ]] || [[ -z ${ADYEN_CLIENT_CONFIG_GATEWAY+x} ]] || [[ -z ${ADYEN_CLIENT_CONFIG_GATEWAY_MERCHANT_ID+x} ]]; then
+            echo "Environment variables are not defined (check and set ADYEN_API_KEY, ADYEN_MERCHANT_ACCOUNT, etc.."
+        else
+            node demo/app.js
+        fi
+
+ports:
+- port: 8080
+  onOpen: open-browser
