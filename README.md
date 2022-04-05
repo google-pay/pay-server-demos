@@ -48,8 +48,8 @@ For example when using Adyen the file would look like:
 ```
 **Step Three:** Start the Gitpod workspace.
 
-In the browser’s address bar, prefix the entire URL with `gitpod.io/#` and press Enter.
-For example, `gitpod.io/#https://github.com/{myuser}/pay-server-demos`
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/gcatanese/pay-server-demos/tree/gitpod-workspace)
+
 
 ## Client Library
 
