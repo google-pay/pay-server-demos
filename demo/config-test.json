@@ -1,0 +1,11 @@
+{
+    "adyen": {
+      "environment": "",
+      "apiKey": "",
+      "merchantAccount": "",
+      "clientConfig": {
+        "gateway": "",
+        "gatewayMerchantId": ""
+      }
+    }
+  }
