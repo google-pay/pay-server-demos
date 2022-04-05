@@ -46,14 +46,14 @@ function configOrEnvVars(config, path) {
 
 var config = undefined;
 
-// check config-test.json
-const configTestPath = path.resolve(__dirname, 'config-test.json');
-if(fs.existsSync(configTestPath)) {
-  config = JSON.parse(stripJsonComments(fs.readFileSync(configTestPath, 'utf8')));
+// check config.json
+const configPath = path.resolve(__dirname, 'config.json');
+if(fs.existsSync(configPath)) {
+  config = JSON.parse(stripJsonComments(fs.readFileSync(configPath, 'utf8')));
 } else {
-  // fallback to config.json
-  const configPath = path.resolve(__dirname, 'config.json');
-  config = JSON.parse(stripJsonComments(fs.readFileSync(configPath, 'utf8')));  
+  // fallback to config-test.json
+  const configTestPath = path.resolve(__dirname, 'config-test.json');
+  config = JSON.parse(stripJsonComments(fs.readFileSync(configTestPath, 'utf8')));  
 }
 
 module.exports = configOrEnvVars(config);
