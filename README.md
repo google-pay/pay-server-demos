@@ -21,7 +21,7 @@ PSP.
 
 ## Deploy Demo App on Gitpod
 
-The demo app can be run on Gitpod: this requires configuring the PSP credentials.
+The demo app can be run on Gitpod: this requires configuring the PSP credentials (Adyen is used in the example below, but same approach is valid for other PSPs).
 
 **Step One:** Define the credentials of the PSP as [gitpod account variables](https://gitpod.io/variables).
 
