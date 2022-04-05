@@ -44,6 +44,16 @@ function configOrEnvVars(config, path) {
   return config;
 }
 
-const configPath = path.resolve(__dirname, 'config.json');
-const config = JSON.parse(stripJsonComments(fs.readFileSync(configPath, 'utf8')));
+var config = undefined;
+
+// check config-test.json
+const configTestPath = path.resolve(__dirname, 'config-test.json');
+if(fs.existsSync(configTestPath)) {
+  config = JSON.parse(stripJsonComments(fs.readFileSync(configTestPath, 'utf8')));
+} else {
+  // fallback to config.json
+  const configPath = path.resolve(__dirname, 'config.json');
+  config = JSON.parse(stripJsonComments(fs.readFileSync(configPath, 'utf8')));  
+}
+
 module.exports = configOrEnvVars(config);
