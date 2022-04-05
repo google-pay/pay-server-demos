@@ -29,7 +29,7 @@ For example when using Adyen you would configure the following:
 
 ![Alt text](gitpod-variables.png?raw=true "Gitpod account variables")
 
-**Step Two:** [Fork](https://github.com/google-pay/pay-server-demos/fork) the repository and create the `config.json` file without the actual values (just as placeholder - the env variables will be used instead), then push.
+**Step Two:** [Fork](https://github.com/google-pay/pay-server-demos/fork) the repository and create the `config-test.json` file without the actual values (just as placeholder - the env variables will be used instead), then push.
 
 For example when using Adyen the file would look like: 
 
