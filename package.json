@@ -2,6 +2,11 @@
   "name": "pay-server-demos",
   "version": "0.0.1",
   "main": "app.js",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:google-pay/pay-server-demos.git"
+  },
   "scripts": {
     "lint": "npm run pretty:check && npm run eslint",
     "eslint": "eslint .",

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@adyen/api-library": "^8.1.0",
+    "@adyen/api-library": "^10.2.0",
     "braintree": "^3.3.0",
     "checkout-sdk-node": "^1.0.28",
     "cybersource-rest-client": "0.0.27",
