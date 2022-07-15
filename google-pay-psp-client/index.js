@@ -37,7 +37,7 @@ fs.readdirSync(handlers).forEach(file => {
         validate(!precisions[order.currency], 'invalid currency provided');
         validate(!order.paymentToken, 'paymentToken not provided');
 
-        order.totalInt = Number(order.total) * Math.pow(10, precisions[order.currency]);
+        order.totalInt = parseInt(Number(order.total) * Math.pow(10, precisions[order.currency]));
         order.totalFixed = Number(order.total).toFixed(precisions[order.currency]);
 
         if (typeof order.paymentToken === 'string') {
