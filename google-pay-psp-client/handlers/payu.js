@@ -15,7 +15,6 @@
  */
 
 const payU = require('nodejs-payu-sdk');
-const uuid = require('uuid');
 
 module.exports = (config, order) => {
   // See PSP's docs for full API details:
