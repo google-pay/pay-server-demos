@@ -66,6 +66,7 @@ clients.braintree
 - Cybersource
 - Datatrans
 - Payeezy (Fiserv / First Data)
+- PayU
 - Square
 - Stripe
 

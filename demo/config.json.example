@@ -97,6 +97,19 @@
       "gateway": "firstdata",
       "gatewayMerchantId": ""
     }
-  }
+  },
 
+  // See PSP's docs for full config details:
+  // https://developers.payu.com/en/google_pay.html
+  "payu": {
+    "environment": "test", // empty for production
+    "clientId": "",
+    "clientSecret": "",
+    "merchantPosId": "",
+    "secondKey": "",
+    "clientConfig": {
+      "gateway": "payu",
+      "gatewayMerchantId": ""
+    }
+  }
 }

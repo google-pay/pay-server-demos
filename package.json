@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "google-pay-psp-client": "file:google-pay-psp-client",
+    "request-ip": "^3.3.0",
     "strip-json-comments": "^3.1.1"
   },
   "devDependencies": {

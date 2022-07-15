@@ -9,6 +9,7 @@
     "cybersource-rest-client": "0.0.27",
     "jwk-to-pem": "^2.0.5",
     "node-fetch": "^2.6.6",
+    "nodejs-payu-sdk": "^1.0.2",
     "payeezy": "^1.0.4",
     "shortid": "^2.2.16",
     "square": "^9.1.0",

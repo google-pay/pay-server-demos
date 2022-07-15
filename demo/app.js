@@ -19,6 +19,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const requestIp = require('request-ip');
 const clients = require('../google-pay-psp-client');
 const configs = require('./config.js');
 const products = require('./public/products.json');
@@ -66,6 +67,7 @@ app.post('/gateways/:gateway/orders', (req, res) => {
     currency: process.env.PAY_DEMO_CURRENCY || 'USD',
     paymentToken: req.body.paymentToken,
     items: req.body.cart,
+    ipAddress: requestIp.getClientIp(req),
     total: Object.keys(req.body.cart).reduce((total, title) => {
       return total + products[title].price * req.body.cart[title];
     }, 0),
