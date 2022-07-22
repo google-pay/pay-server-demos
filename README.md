@@ -36,11 +36,12 @@ const config = {
   privateKey: 'private key',
 };
 
-// An order requires a total, client-side Google Pay token, and currency.
+// An order requires a total, currency, and
+// client-side response from the Google Pay API.
 const order = {
   total: 100,
   currency: 'USD',
-  paymentToken: JSON.parse(req.body.paymentToken),
+  paymentResponse: req.body.paymentResponse,
 };
 
 // Each PSP has a "pay" method, which takes config, order, and returns a Promise.

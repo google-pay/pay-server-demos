@@ -15,7 +15,6 @@
  */
 
 const adyen = require('@adyen/api-library');
-const uuid = require('uuid');
 
 module.exports = (config, order) => {
   // See PSP's docs for full API details:
@@ -39,7 +38,7 @@ module.exports = (config, order) => {
       type: 'paywithgoogle', // signifies Google Pay being used
       googlePayToken: JSON.stringify(order.paymentToken),
     },
-    reference: uuid.v4(),
+    reference: order.id,
     merchantAccount: config.merchantAccount,
   });
 };

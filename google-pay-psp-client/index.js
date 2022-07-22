@@ -16,6 +16,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const uuid = require('uuid');
 const precisions = require('./precisions.js');
 
 const handlers = path.resolve(__dirname, 'handlers');
@@ -33,13 +34,25 @@ fs.readdirSync(handlers).forEach(file => {
 
         validate(typeof config !== 'object', 'config not provided');
         validate(typeof order !== 'object', 'order not provided');
-        validate(isNaN(order.total), 'order total is not numeric');
+        validate(isNaN(order.total) && (!order.items || isNaN(order.items[0].price)), 'order contains neither numeric total, or items with numeric price');
         validate(!precisions[order.currency], 'invalid currency provided');
         validate(!order.paymentToken, 'paymentToken not provided');
 
-        order.totalInt = parseInt(Number(order.total) * Math.pow(10, precisions[order.currency]));
-        order.totalFixed = Number(order.total).toFixed(precisions[order.currency]);
+        const withTotals = (obj) => {
+          const total = Number(obj.total || obj.price * obj.quantity);
+          obj.totalInt = Math.round(total * Math.pow(10, precisions[order.currency]));
+          obj.totalFixed = total.toFixed(precisions[order.currency]);
+          return obj;
+        };
 
+        order.id ||= uuid.v4();
+        order.total ||= order.items.reduce((total, item) => {
+          return total + item.price * item.quantity;
+        }, 0);
+        order.items = !order.items ? [] : order.items.map(withTotals);
+        order = withTotals(order);
+
+        order.paymentToken ||= order.paymentResponse.paymentMethodData.tokenizationData.token;
         if (typeof order.paymentToken === 'string') {
           try {
             const paymentToken = JSON.parse(order.paymentToken);

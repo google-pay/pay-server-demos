@@ -25,6 +25,7 @@ module.exports = (config, order) => {
   return client.createOrder({
     payMethods: {
       payMethod: {
+        // signifies Google Pay being used
         value: 'ap',
         type: 'PBL',
         authorizationCode: Buffer.from(JSON.stringify(order.paymentToken)).toString('base64'),
@@ -34,7 +35,7 @@ module.exports = (config, order) => {
     currencyCode: order.currency.toUpperCase(),
     totalAmount: order.totalInt,
     customerIp: order.ipAddress,
-    description: Object.entries(order.items).map(item => `${item[1]} x ${item[0]}`).join(', '),
+    description: order.items.map(item => `${item.quantity} x ${item.title}`).join(', '),
   });
 };
 

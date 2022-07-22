@@ -169,15 +169,15 @@ function onGooglePayButtonClick() {
   };
   googlePayClient
     .loadPaymentData(paymentRequest)
-    .then(r => onGooglePayPaymentLoaded(r.paymentMethodData.tokenizationData.token))
+    .then(onGooglePayPaymentLoaded)
     .catch(console.error);
 }
 
 // When paymentToken received from Google Pay, passes the token and cart to the
 // server-side payment gateway.
-function onGooglePayPaymentLoaded(paymentToken) {
-  console.log('paymentToken received', JSON.parse(paymentToken));
-  fetchJson(`/gateways/${gateway}/orders`, jsonBody({ paymentToken: paymentToken, cart: cart })).then(response => {
+function onGooglePayPaymentLoaded(paymentResponse) {
+  console.log('paymentResponse received', paymentResponse);
+  fetchJson(`/gateways/${gateway}/orders`, jsonBody({ paymentResponse: paymentResponse, cart: cart })).then(response => {
     removeAllProducts();
     el('cart').style.display = 'none';
     el('order').style.display = 'inline-block';

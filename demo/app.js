@@ -61,16 +61,20 @@ app.get('/gateways/:gateway', (req, res) => {
 // make a payment for a gateway
 app.post('/gateways/:gateway/orders', (req, res) => {
   // Create the order object passed to the handler.
-  // NOTE: Cart total gets calculated here, not
-  // client-side since doing so could be manipulated.
+  // NOTE: Cart total gets calculated here (via PSP client),
+  // not client-side since doing so could be manipulated.
   const order = {
     currency: process.env.PAY_DEMO_CURRENCY || 'USD',
-    paymentToken: req.body.paymentToken,
-    items: req.body.cart,
     ipAddress: requestIp.getClientIp(req),
-    total: Object.keys(req.body.cart).reduce((total, title) => {
-      return total + products[title].price * req.body.cart[title];
-    }, 0),
+    host: req.hostname,
+    paymentResponse: req.body.paymentResponse,
+    items: Object.keys(req.body.cart).map(title => {
+      return {
+        title: title,
+        quantity: req.body.cart[title],
+        price: products[title].price,
+      };
+    }),
   };
 
   const client = clients[req.params.gateway];

@@ -15,7 +15,6 @@
  */
 
 const Checkout = require('checkout-sdk-node').Checkout;
-const uuid = require('uuid');
 
 module.exports = (config, order) => {
   // See PSP's docs for full API details:
@@ -32,7 +31,7 @@ module.exports = (config, order) => {
         source: { token: response.token },
         currency: order.currency.toUpperCase(),
         amount: order.totalInt,
-        reference: uuid.v4(),
+        reference: order.id,
       });
     });
 };

@@ -15,7 +15,6 @@
  */
 
 const square = require('square');
-const uuid = require('uuid');
 
 function parseBody(response) {
   try {
@@ -38,7 +37,7 @@ module.exports = (config, order) => {
   return client.paymentsApi
     .createPayment({
       sourceId: order.paymentToken,
-      idempotencyKey: uuid.v4(),
+      idempotencyKey: order.id,
       amountMoney: {
         amount: order.totalInt,
         currency: order.currency.toUpperCase(),
