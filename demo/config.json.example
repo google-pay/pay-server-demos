@@ -111,5 +111,16 @@
       "gateway": "payu",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://help.wayforpay.com/google-pay
+  "wayforpay": {
+    "merchantAccount": "",
+    "secretKey": "",
+    "clientConfig": {
+      "gateway": "wayforpay",
+      "gatewayMerchantId": ""
+    }
   }
 }

@@ -11,10 +11,13 @@
     "node-fetch": "^2.6.6",
     "nodejs-payu-sdk": "^1.0.2",
     "payeezy": "^1.0.4",
+    "request": "^2.88.2",
     "shortid": "^2.2.16",
     "square": "^9.1.0",
     "stripe": "^8.142.0",
+    "utf8": "^3.0.0",
     "uuid": "^8.3.2",
+    "wayforpay": "^0.1.0",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.5"
   },
