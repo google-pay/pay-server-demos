@@ -32,6 +32,10 @@ fs.readdirSync(handlers).forEach(file => {
           if (condition) reject({ error: message });
         };
 
+        if (!order.paymentToken && order.paymentResponse) {
+          order.paymentToken = order.paymentResponse.paymentMethodData.tokenizationData.token;
+        }
+
         validate(typeof config !== 'object', 'config not provided');
         validate(typeof order !== 'object', 'order not provided');
         validate(isNaN(order.total) && (!order.items || isNaN(order.items[0].price)), 'order contains neither numeric total, or items with numeric price');
@@ -50,9 +54,9 @@ fs.readdirSync(handlers).forEach(file => {
           return total + item.price * item.quantity;
         }, 0);
         order.items = !order.items ? [] : order.items.map(withTotals);
+        order.description = order.items.map(item => `${item.quantity} x ${item.title}`).join(', ');
         order = withTotals(order);
 
-        order.paymentToken ||= order.paymentResponse.paymentMethodData.tokenizationData.token;
         if (typeof order.paymentToken === 'string') {
           try {
             const paymentToken = JSON.parse(order.paymentToken);

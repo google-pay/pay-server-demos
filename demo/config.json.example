@@ -122,5 +122,18 @@
       "gateway": "wayforpay",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://developer.worldpay.com/docs/wpg/directintegration/quickstart
+  "worldpay": {
+    "merchantCode": "",
+    "newUsername": "",
+    "xmlPassword": "",
+    "url": "https://secure-test.worldpay.com/jsp/merchant/xml/paymentService.jsp",  // change for production
+    "clientConfig": {
+      "gateway": "worldpay",
+      "gatewayMerchantId": ""
+    }
   }
 }

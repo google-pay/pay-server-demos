@@ -35,7 +35,7 @@ module.exports = (config, order) => {
     currencyCode: order.currency.toUpperCase(),
     totalAmount: order.totalInt,
     customerIp: order.ipAddress,
-    description: order.items.map(item => `${item.quantity} x ${item.title}`).join(', '),
+    description: order.description,
   });
 };
 
