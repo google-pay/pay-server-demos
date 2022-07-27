@@ -135,5 +135,17 @@
       "gateway": "worldpay",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://dev.solidgate.com/developers/documentation/introduction/Host-to-host-API
+  "solid": {
+    "merchantId": "",
+    "privateKey": "",
+    "url": "https://pay.solidgate.com/api/v1/", // change for testing
+    "clientConfig": {
+      "gateway": "solid",
+      "gatewayMerchantId": ""
+    }
   }
 }

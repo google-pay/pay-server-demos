@@ -4,6 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "@adyen/api-library": "^10.2.0",
+    "@solidgate/node-sdk": "^1.1.2",
     "braintree": "^3.3.0",
     "checkout-sdk-node": "^1.0.28",
     "cybersource-rest-client": "0.0.27",
