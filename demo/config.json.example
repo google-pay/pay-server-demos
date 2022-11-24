@@ -147,5 +147,17 @@
       "gateway": "solid",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://docs.spreedly.com/guides/google-pay
+  "spreedly": {
+    "environmentKey": "",
+    "accessSecret": "",
+    "gatewayToken": "",
+    "clientConfig": {
+      "gateway": "spreedly",
+      "gatewayMerchantId": ""
+    }
   }
 }

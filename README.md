@@ -65,6 +65,7 @@ clients.braintree
 - Payeezy (Fiserv / First Data)
 - PayU
 - Solid
+- Spreedly
 - Square
 - Stripe
 - WayForPay

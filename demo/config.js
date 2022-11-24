@@ -32,7 +32,7 @@ function configOrEnvVars(config, path) {
         .toUpperCase();
     const type = typeof config[k];
     config[k] = type === 'object' ? configOrEnvVars(config[k], thisPath) : config[k] || process.env[thisPath];
-    if (typeof config[k] != type) {
+    if (typeof config[k] != type && config[k] !== undefined) {
       config[k] = JSON.parse(config[k]);
     }
   });
