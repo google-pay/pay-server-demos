@@ -24,7 +24,7 @@ module.exports = (config, order) => {
 
   return new Promise((resolve, reject) => {
     client.charge({
-      merchantDomainName: order.host,
+      merchantDomainName: order.request.hostname,
       orderReference: order.id,
       orderDate: new Date().getTime(),
       amount: order.totalFixed,

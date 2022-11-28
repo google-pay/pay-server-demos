@@ -66,7 +66,7 @@ app.post('/gateways/:gateway/orders', (req, res) => {
   const order = {
     currency: process.env.PAY_DEMO_CURRENCY || 'USD',
     ipAddress: requestIp.getClientIp(req),
-    host: req.hostname,
+    request: req,
     paymentResponse: req.body.paymentResponse,
     items: Object.keys(req.body.cart).map(title => {
       return {

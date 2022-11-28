@@ -159,5 +159,16 @@
       "gateway": "spreedly",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://docs.barion.com/Google_Pay
+  "barion": {
+    "environment": "test", // change for production
+    "posKey": "",
+    "clientConfig": {
+      "gateway": "barion",
+      "gatewayMerchantId": ""
+    }
   }
 }

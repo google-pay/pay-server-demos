@@ -58,6 +58,7 @@ clients.braintree
 ## Current PSPs
 
 - Adyen
+- Barion
 - Braintree
 - Checkout.com
 - Cybersource

@@ -22,8 +22,6 @@ module.exports = (config, order) => {
 
   const client = new solidGate.Api(config.merchantId, config.privateKey, config.url);
 
-  order.email ||= 'test@test.com';
-
   return client.googlePay({
     platform: 'WEB',
     amount: order.totalInt,
