@@ -170,5 +170,17 @@
       "gateway": "barion",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://www.windcave.com/developer-ecommerce-google-pay
+  "windcave": {
+    "host": "uat", // "sec" for production
+    "username": "",
+    "apiKey": "",
+    "clientConfig": {
+      "gateway": "windcave",
+      "gatewayMerchantId": ""
+    }
   }
 }

@@ -70,6 +70,7 @@ clients.braintree
 - Square
 - Stripe
 - WayForPay
+- Windcave
 - Worldpay
 
 Don't see your PSP here? Feel free to contribute an integration example using the steps below.
