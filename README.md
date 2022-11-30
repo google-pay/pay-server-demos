@@ -57,21 +57,21 @@ clients.braintree
 
 ## Current PSPs
 
-- Adyen
-- Barion
-- Braintree
-- Checkout.com
-- Cybersource
-- Datatrans
-- Payeezy (Fiserv / First Data)
-- PayU
-- Solid
-- Spreedly
-- Square
-- Stripe
-- WayForPay
-- Windcave
-- Worldpay
+- [Adyen](https://docs.adyen.com/payment-methods/google-pay/api-only)
+- [Barion](https://docs.barion.com/Google_Pay)
+- [Braintree](https://developer.paypal.com/braintree/docs/guides/google-pay/overview)
+- [Checkout.com](https://docs.checkout.com/payments/payment-methods/wallets/google-pay)
+- [Cybersource](https://docs.cybersource.com/en/payments-tech-docs/googlepay.html)
+- [Datatrans](https://docs.datatrans.ch/docs/payment-methods#section-google-pay)
+- [Payeezy (Fiserv / First Data)](https://github.com/payeezy/get_started_with_payeezy)
+- [PayU](https://developers.payu.com/en/google_pay.html)
+- [Solid](https://dev.solidgate.com/developers/documentation/introduction/Host-to-host-API)
+- [Spreedly](https://docs.spreedly.com/guides/google-pay)
+- [Square](https://developer.squareup.com/docs/payment-form/add-digital-wallets/google-pay)
+- [Stripe](https://stripe.com/docs/google-pay)
+- [WayForPay](https://help.wayforpay.com/google-pay)
+- [Windcave](https://www.windcave.com/developer-ecommerce-google-pay)
+- [Worldpay](https://developer.worldpay.com/docs/wpg/directintegration/quickstart)
 
 Don't see your PSP here? Feel free to contribute an integration example using the steps below.
 
