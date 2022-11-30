@@ -21,23 +21,21 @@ module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://docs.datatrans.ch/docs/payment-methods#section-google-pay
 
-  const requestData = {
-    currency: order.currency,
-    amount: order.totalInt,
-    PAY: order.paymentToken,
-    refno: shortid.generate(),
-  };
-
   const host = config.environment === 'sandbox' ? 'api.sandbox' : 'api';
   const auth = Buffer.from(`${config.clientConfig.gatewayMerchantId}:${config.password}`).toString('base64');
 
   return fetch(`https://${host}.datatrans.com/v1/transactions/authorize`, {
     method: 'POST',
-    body: JSON.stringify(requestData),
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Basic ${auth}`,
     },
+    body: JSON.stringify({
+      currency: order.currency,
+      amount: order.totalInt,
+      PAY: order.paymentToken,
+      refno: shortid.generate(),
+    }),
   }).then(response => {
     if (response.ok) {
       return Promise.resolve(response.json());
