@@ -182,5 +182,16 @@
       "gateway": "windcave",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://docs.bepaid.by/ru/google_pay/integration/owncheckout
+  "bepaid": {
+    "shopId": "",
+    "secretKey": "",
+    "clientConfig": {
+      "gateway": "ecomcharge",
+      "gatewayMerchantId": ""
+    }
   }
 }
