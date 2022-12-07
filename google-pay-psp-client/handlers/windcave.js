@@ -30,7 +30,7 @@ module.exports = (config, order) => {
     body: JSON.stringify({
       type: 'purchase',
       amount: String(order.totalFixed),
-      currency: order.currency.toUpperCase(),
+      currency: order.currency,
       merchantReference: order.id,
       googlePay: order.paymentToken,
     }),

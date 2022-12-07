@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-const shortid = require('shortid');
 const fetch = require('node-fetch');
 
 module.exports = (config, order) => {
@@ -30,7 +29,7 @@ module.exports = (config, order) => {
     body: JSON.stringify({
       "request": {
         "amount": order.totalInt,
-        "currency": order.currency.toUpperCase(),
+        "currency": order.currency,
         "description": "Google Pay test transaction",
         "tracking_id": order.id,
         "credit_card": {

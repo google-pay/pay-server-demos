@@ -40,7 +40,7 @@ module.exports = (config, order) => {
       idempotencyKey: order.id,
       amountMoney: {
         amount: order.totalInt,
-        currency: order.currency.toUpperCase(),
+        currency: order.currency,
       },
     })
     .then(parseBody)

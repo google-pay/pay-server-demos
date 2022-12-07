@@ -41,7 +41,7 @@ module.exports = (config, order) => {
     },
     orderInformation: {
       amountDetails: {
-        currency: order.currency.toUpperCase(),
+        currency: order.currency,
         totalAmount: String(order.totalFixed),
       },
     },

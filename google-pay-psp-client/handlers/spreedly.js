@@ -41,7 +41,7 @@ module.exports = (config, order) => {
     client.purchase.create(config.gatewayToken, {
       transaction: {
         amount: order.totalInt,
-        currency_code: order.currency.toUpperCase(),
+        currency_code: order.currency,
         google_pay: {
           payment_data: order.paymentToken,
         },

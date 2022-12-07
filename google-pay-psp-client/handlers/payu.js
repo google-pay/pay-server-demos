@@ -32,7 +32,7 @@ module.exports = (config, order) => {
       }
     },
     merchantPosId: config.merchantPosId,
-    currencyCode: order.currency.toUpperCase(),
+    currencyCode: order.currency,
     totalAmount: order.totalInt,
     customerIp: order.ipAddress,
     description: order.description,

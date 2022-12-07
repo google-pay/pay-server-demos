@@ -31,7 +31,7 @@ module.exports = (config, order) => {
 
   return checkout.payments({
     amount: {
-      currency: order.currency.toUpperCase(),
+      currency: order.currency,
       value: order.totalInt,
     },
     paymentMethod: {

@@ -29,7 +29,7 @@ module.exports = (config, order) => {
 
   return client.googlePay({
     PaymentRequestId: order.id,
-    Currency: order.currency.toUpperCase(),
+    Currency: order.currency,
     PayerEmailAddress: order.email,
     PaymentType: 'Immediate',
     GooglePayToken: JSON.stringify(order.paymentToken),

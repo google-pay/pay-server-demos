@@ -29,7 +29,7 @@ module.exports = (config, order) => {
     .then(response => {
       return checkout.payments.request({
         source: { token: response.token },
-        currency: order.currency.toUpperCase(),
+        currency: order.currency,
         amount: order.totalInt,
         reference: order.id,
       });

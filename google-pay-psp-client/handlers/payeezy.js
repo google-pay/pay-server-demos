@@ -25,7 +25,7 @@ module.exports = (config, order) => {
   client.version = 'v1';
 
   const requestData = {
-    'currency_code': order.currency.toUpperCase(),
+    'currency_code': order.currency,
     'amount': String(order.totalInt),
     'transaction_type': 'purchase',
     'method': '3DS',
