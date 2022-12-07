@@ -25,7 +25,7 @@ module.exports = (config, order) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + Buffer.from(`${config.username}:${config.apiKey}`).toString('base64'),
+      Authorization: 'Basic ' + Buffer.from(`${config.username}:${config.apiKey}`).toString('base64'),
     },
     body: JSON.stringify({
       type: 'purchase',

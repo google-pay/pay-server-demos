@@ -24,15 +24,15 @@ module.exports = (config, order) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + Buffer.from(`${config.username}:${config.password}`).toString('base64'),
+      Authorization: 'Basic ' + Buffer.from(`${config.username}:${config.password}`).toString('base64'),
     },
     body: JSON.stringify({
-      "cardTransactionType": "AUTH_CAPTURE",
-      "amount": order.totalFixed,
-      "currency": order.currency,
-      "wallet": {
-        "walletType": "GOOGLE_PAY",
-        "encodedPaymentToken": Buffer.from(JSON.stringify(order.paymentToken)).toString('base64')
+      cardTransactionType: 'AUTH_CAPTURE',
+      amount: order.totalFixed,
+      currency: order.currency,
+      wallet: {
+        walletType: 'GOOGLE_PAY',
+        encodedPaymentToken: Buffer.from(JSON.stringify(order.paymentToken)).toString('base64')
       }
     }),
   }).then(response => {

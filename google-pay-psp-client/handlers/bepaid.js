@@ -24,16 +24,16 @@ module.exports = (config, order) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + Buffer.from(`${config.shopId}:${config.secretKey}`).toString('base64'),
+      Authorization: 'Basic ' + Buffer.from(`${config.shopId}:${config.secretKey}`).toString('base64'),
     },
     body: JSON.stringify({
-      "request": {
-        "amount": order.totalInt,
-        "currency": order.currency,
-        "description": "Google Pay test transaction",
-        "tracking_id": order.id,
-        "credit_card": {
-          "token": '$begateway_google_pay_1_0_0$' + Buffer.from(JSON.stringify(order.paymentToken)).toString('base64')
+      request: {
+        amount: order.totalInt,
+        currency: order.currency,
+        description: `Order ${order.id}`,
+        tracking_id: order.id,
+        credit_card: {
+          token: '$begateway_google_pay_1_0_0$' + Buffer.from(JSON.stringify(order.paymentToken)).toString('base64')
         }
       }
     }),
