@@ -60,6 +60,7 @@ clients.braintree
 - [Adyen](https://docs.adyen.com/payment-methods/google-pay/api-only)
 - [Barion](https://docs.barion.com/Google_Pay)
 - [BePaid](https://docs.bepaid.by/ru/google_pay/integration/owncheckout)
+- [BlueSnap](https://developers.bluesnap.com/reference/google-pay#section-implementing-google-pay-in-your-website)
 - [Braintree](https://developer.paypal.com/braintree/docs/guides/google-pay/overview)
 - [Checkout.com](https://docs.checkout.com/payments/payment-methods/wallets/google-pay)
 - [Cybersource](https://docs.cybersource.com/en/payments-tech-docs/googlepay.html)

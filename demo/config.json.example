@@ -193,5 +193,17 @@
       "gateway": "ecomcharge",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://developers.bluesnap.com/reference/google-pay#section-implementing-google-pay-in-your-website
+  "bluesnap": {
+    "host": "sandbox", // "ws" for production
+    "username": "",
+    "password": "",
+    "clientConfig": {
+      "gateway": "bluesnap",
+      "gatewayMerchantId": ""
+    }
   }
 }
