@@ -32,7 +32,7 @@ module.exports = (config, order) => {
       currency: order.currency,
       wallet: {
         walletType: 'GOOGLE_PAY',
-        encodedPaymentToken: Buffer.from(JSON.stringify(order.paymentToken)).toString('base64')
+        encodedPaymentToken: Buffer.from(JSON.stringify(order.paymentResponse)).toString('base64')
       }
     }),
   }).then(response => {
