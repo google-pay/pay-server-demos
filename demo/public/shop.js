@@ -48,6 +48,7 @@ const googlePayBaseConfiguration = {
     merchantId: '01234567890123456789',
     merchantName: 'Example Merchant',
   },
+  emailRequired: true,
 };
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {

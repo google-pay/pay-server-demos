@@ -35,6 +35,9 @@ fs.readdirSync(handlers).forEach(file => {
         if (!order.paymentToken && order.paymentResponse) {
           order.paymentToken = order.paymentResponse.paymentMethodData.tokenizationData.token;
         }
+        if (!order.email && order.paymentResponse) {
+          order.email = order.paymentResponse.email;
+        }
 
         validate(typeof config !== 'object', 'config not provided');
         validate(typeof order !== 'object', 'order not provided');
