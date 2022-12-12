@@ -205,5 +205,17 @@
       "gateway": "bluesnap",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://braspag.github.io/en/manual/ewallets
+  "braspag": {
+    "environment": "sandbox", // empty for production
+    "merchantId": "",
+    "merchantKey": "",
+    "clientConfig": {
+      "gateway": "cielo",
+      "gatewayMerchantId": ""
+    }
   }
 }

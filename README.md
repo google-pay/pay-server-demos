@@ -62,6 +62,7 @@ clients.braintree
 - [BePaid](https://docs.bepaid.by/ru/google_pay/integration/owncheckout)
 - [BlueSnap](https://developers.bluesnap.com/reference/google-pay#section-implementing-google-pay-in-your-website)
 - [Braintree](https://developer.paypal.com/braintree/docs/guides/google-pay/overview)
+- [Braspag](https://braspag.github.io/en/manual/ewallets)
 - [Checkout.com](https://docs.checkout.com/payments/payment-methods/wallets/google-pay)
 - [Cybersource](https://docs.cybersource.com/en/payments-tech-docs/googlepay.html)
 - [Datatrans](https://docs.datatrans.ch/docs/payment-methods#section-google-pay)
