@@ -31,8 +31,8 @@ function configOrEnvVars(config, path) {
         .replace(/[^\w]/g, '_')
         .toUpperCase();
     const type = typeof config[k];
-    config[k] = type === 'object' ? configOrEnvVars(config[k], thisPath) : config[k] || process.env[thisPath];
-    if (typeof config[k] != type && config[k] !== undefined) {
+    config[k] = type === 'object' ? configOrEnvVars(config[k], thisPath) : (!config[k] && process.env[thisPath] ? process.env[thisPath] : config[k]);
+    if (typeof config[k] != type) {
       config[k] = JSON.parse(config[k]);
     }
   });
