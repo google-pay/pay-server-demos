@@ -38,25 +38,27 @@ module.exports = (config, order) => {
     },
     etoken: {
       token: JSON.stringify(order.paymentToken),
-    }
+    },
   };
 
   body.general.signature = signer(body, config.secretKey);
 
-  return fetch(`https://api.ecommpay.com/v2/payment/googlepay/sale`, {
+  return fetch('https://api.ecommpay.com/v2/payment/googlepay/sale', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
-  }).then(response => {
-    ok = response.ok;
-    return response.json()
-  }).then(response => {
-    if (ok) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  });
+  })
+    .then(response => {
+      ok = response.ok;
+      return response.json();
+    })
+    .then(response => {
+      if (ok) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };

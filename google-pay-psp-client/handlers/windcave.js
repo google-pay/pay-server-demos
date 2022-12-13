@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-const shortid = require('shortid');
 const fetch = require('node-fetch');
 
 module.exports = (config, order) => {
@@ -27,7 +26,7 @@ module.exports = (config, order) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Basic ' + Buffer.from(`${config.username}:${config.apiKey}`).toString('base64'),
+      'Authorization': 'Basic ' + Buffer.from(`${config.username}:${config.apiKey}`).toString('base64'),
     },
     body: JSON.stringify({
       type: 'purchase',
@@ -36,14 +35,16 @@ module.exports = (config, order) => {
       merchantReference: order.id,
       googlePay: order.paymentToken,
     }),
-  }).then(response => {
-    ok = response.ok;
-    return response.json()
-  }).then(response => {
-    if (ok) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  });
+  })
+    .then(response => {
+      ok = response.ok;
+      return response.json();
+    })
+    .then(response => {
+      if (ok) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };

@@ -1,11 +1,11 @@
 # Google Pay Server Demos
 
 This project demonstrates integrating Google Pay with various Payments Service Providers (PSPs), using JavaScript and
-Node.js. It consists of two parts: a client library that wraps each of the PSP server-side APIs, and a demo app
-that demonstrates end to end integration for any of the included PSPs.
+Node.js. It consists of two parts: a client library that wraps each of the PSP server-side APIs, and a demo app that
+demonstrates end to end integration for any of the included PSPs.
 
-If you're just interested in sample code for a particular PSP, go straight to the `google-pay-psp-client/handlers` directory,
-where you'll find server-side samples for each PSP.
+If you're just interested in sample code for a particular PSP, go straight to the `google-pay-psp-client/handlers`
+directory, where you'll find server-side samples for each PSP.
 
 ## Demo App
 

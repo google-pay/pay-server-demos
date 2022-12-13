@@ -172,22 +172,21 @@ function onGooglePayButtonClick() {
     currencyCode: 'USD',
     countryCode: 'US',
   };
-  googlePayClient
-    .loadPaymentData(paymentRequest)
-    .then(onGooglePayPaymentLoaded)
-    .catch(console.error);
+  googlePayClient.loadPaymentData(paymentRequest).then(onGooglePayPaymentLoaded).catch(console.error);
 }
 
 // When paymentToken received from Google Pay, passes the token and cart to the
 // server-side payment gateway.
 function onGooglePayPaymentLoaded(paymentResponse) {
   console.log('paymentResponse received', paymentResponse);
-  fetchJson(`/gateways/${gateway}/orders`, jsonBody({ paymentResponse: paymentResponse, cart: cart })).then(response => {
-    removeAllProducts();
-    el('cart').style.display = 'none';
-    el('order').style.display = 'inline-block';
-    el('order-details').innerHTML = JSON.stringify(response, null, 2);
-  });
+  fetchJson(`/gateways/${gateway}/orders`, jsonBody({ paymentResponse: paymentResponse, cart: cart })).then(
+    response => {
+      removeAllProducts();
+      el('cart').style.display = 'none';
+      el('order').style.display = 'inline-block';
+      el('order-details').innerHTML = JSON.stringify(response, null, 2);
+    },
+  );
 }
 
 function loadShop() {

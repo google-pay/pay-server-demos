@@ -23,34 +23,37 @@ module.exports = (config, order) => {
   const client = new WayForPay(config.merchantAccount, config.secretKey);
 
   return new Promise((resolve, reject) => {
-    client.charge({
-      merchantDomainName: order.request.hostname,
-      orderReference: order.id,
-      orderDate: new Date().getTime(),
-      amount: order.totalFixed,
-      currency: order.currency,
-      productName: order.items.map(item => item.title),
-      productCount: order.items.map(item => item.quantity),
-      productPrice: order.items.map(item => item.totalFixed),
-      gpApiVersionMinor: order.paymentResponse.apiVersionMinor,
-      gpApiVersion: order.paymentResponse.apiVersion,
-      gpPMDescription: order.paymentResponse.paymentMethodData.description,
-      gpPMType: order.paymentResponse.paymentMethodData.type,
-      gpPMTCardNetwork: order.paymentResponse.paymentMethodData.info.cardNetwork,
-      gpPMTCardDetails: order.paymentResponse.paymentMethodData.info.cardDetails,
-      gpTokenizationType: order.paymentResponse.paymentMethodData.tokenizationData.type,
-      gpToken: order.paymentResponse.paymentMethodData.tokenizationData.token,
-    }, (response) => {
-      try {
-        response = JSON.parse(response);
-        if (response.reasonCode === 1100) {
-          resolve(response);
-          return;
+    client.charge(
+      {
+        merchantDomainName: order.request.hostname,
+        orderReference: order.id,
+        orderDate: new Date().getTime(),
+        amount: order.totalFixed,
+        currency: order.currency,
+        productName: order.items.map(item => item.title),
+        productCount: order.items.map(item => item.quantity),
+        productPrice: order.items.map(item => item.totalFixed),
+        gpApiVersionMinor: order.paymentResponse.apiVersionMinor,
+        gpApiVersion: order.paymentResponse.apiVersion,
+        gpPMDescription: order.paymentResponse.paymentMethodData.description,
+        gpPMType: order.paymentResponse.paymentMethodData.type,
+        gpPMTCardNetwork: order.paymentResponse.paymentMethodData.info.cardNetwork,
+        gpPMTCardDetails: order.paymentResponse.paymentMethodData.info.cardDetails,
+        gpTokenizationType: order.paymentResponse.paymentMethodData.tokenizationData.type,
+        gpToken: order.paymentResponse.paymentMethodData.tokenizationData.token,
+      },
+      response => {
+        try {
+          response = JSON.parse(response);
+          if (response.reasonCode === 1100) {
+            resolve(response);
+            return;
+          }
+        } catch (e) {
+          // handle error as required
         }
-      } catch (e) {}
-      reject(response);
-    });
+        reject(response);
+      },
+    );
   });
 };
-
-
