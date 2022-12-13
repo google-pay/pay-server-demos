@@ -20,6 +20,8 @@ module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://developers.bluesnap.com/reference/google-pay#section-implementing-google-pay-in-your-website
 
+  let ok;
+
   return fetch(`https://sandbox.bluesnap.com/services/2/transactions`, {
     method: 'POST',
     headers: {
@@ -36,10 +38,13 @@ module.exports = (config, order) => {
       }
     }),
   }).then(response => {
-    if (response.ok) {
-      return Promise.resolve(response.json());
+    ok = response.ok;
+    return response.json()
+  }).then(response => {
+    if (ok) {
+      return Promise.resolve(response);
     } else {
-      return Promise.reject(response.json());
+      return Promise.reject(response);
     }
   });
 };

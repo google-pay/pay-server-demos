@@ -20,6 +20,8 @@ module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://docs.bepaid.by/ru/google_pay/integration/owncheckout
 
+  let ok;
+
   return fetch(`https://gateway.bepaid.by/transactions/payments`, {
     method: 'POST',
     headers: {
@@ -28,6 +30,7 @@ module.exports = (config, order) => {
     },
     body: JSON.stringify({
       request: {
+        test: config.test,
         amount: order.totalInt,
         currency: order.currency,
         description: `Order ${order.id}`,
@@ -38,10 +41,13 @@ module.exports = (config, order) => {
       }
     }),
   }).then(response => {
-    if (response.ok) {
-      return Promise.resolve(response.json());
+    ok = response.ok;
+    return response.json()
+  }).then(response => {
+    if (ok) {
+      return Promise.resolve(response);
     } else {
-      return Promise.reject(response.json());
+      return Promise.reject(response);
     }
   });
 };

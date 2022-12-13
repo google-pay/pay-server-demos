@@ -23,6 +23,7 @@ module.exports = (config, order) => {
 
   const host = config.environment === 'sandbox' ? 'api.sandbox' : 'api';
   const auth = Buffer.from(`${config.clientConfig.gatewayMerchantId}:${config.password}`).toString('base64');
+  let ok;
 
   return fetch(`https://${host}.datatrans.com/v1/transactions/authorize`, {
     method: 'POST',
@@ -37,10 +38,13 @@ module.exports = (config, order) => {
       refno: shortid.generate(),
     }),
   }).then(response => {
-    if (response.ok) {
-      return Promise.resolve(response.json());
+    ok = response.ok;
+    return response.json()
+  }).then(response => {
+    if (ok) {
+      return Promise.resolve(response);
     } else {
-      return Promise.reject(response.json());
+      return Promise.reject(response);
     }
   });
 };

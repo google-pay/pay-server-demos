@@ -21,6 +21,8 @@ module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://www.windcave.com/developer-ecommerce-google-pay
 
+  let ok;
+
   return fetch(`https://${config.host}.windcave.com/api/v1/transactions`, {
     method: 'POST',
     headers: {
@@ -35,10 +37,13 @@ module.exports = (config, order) => {
       googlePay: order.paymentToken,
     }),
   }).then(response => {
-    if (response.ok) {
-      return Promise.resolve(response.json());
+    ok = response.ok;
+    return response.json()
+  }).then(response => {
+    if (ok) {
+      return Promise.resolve(response);
     } else {
-      return Promise.reject(response.json());
+      return Promise.reject(response);
     }
   });
 };
