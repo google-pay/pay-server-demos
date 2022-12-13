@@ -8,6 +8,7 @@
     "braintree": "^3.3.0",
     "checkout-sdk-node": "^1.0.28",
     "cybersource-rest-client": "0.0.27",
+    "ecommpay": "^0.1.7",
     "jwk-to-pem": "^2.0.5",
     "node-barion": "stephenmcd/node-barion#googlepay",
     "node-fetch": "^2.6.6",

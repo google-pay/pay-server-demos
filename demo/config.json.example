@@ -217,5 +217,16 @@
       "gateway": "cielo",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://developers.ecommpay.com/en/pm_googlepay.html
+  "ecommpay": {
+    "projectId": "",
+    "secretKey": "",
+    "clientConfig": {
+      "gateway": "ecommpay",
+      "gatewayMerchantId": ""
+    }
   }
 }
