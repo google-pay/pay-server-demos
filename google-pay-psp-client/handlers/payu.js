@@ -20,7 +20,13 @@ module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://developers.payu.com/en/google_pay.html
 
-  const client = new payU(config.clientId, config.clientSecret, config.merchantPosId, config.secondKey, config.environment);
+  const client = new payU(
+    config.clientId,
+    config.clientSecret,
+    config.merchantPosId,
+    config.secondKey,
+    config.environment,
+  );
 
   return client.createOrder({
     payMethods: {
@@ -29,7 +35,7 @@ module.exports = (config, order) => {
         value: 'ap',
         type: 'PBL',
         authorizationCode: Buffer.from(JSON.stringify(order.paymentToken)).toString('base64'),
-      }
+      },
     },
     merchantPosId: config.merchantPosId,
     currencyCode: order.currency,
@@ -38,5 +44,3 @@ module.exports = (config, order) => {
     description: order.description,
   });
 };
-
-

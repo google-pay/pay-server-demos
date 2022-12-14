@@ -2,11 +2,8 @@
   "root": true,
   "env": {
     "browser": true,
-    "es6": true,
+    "es2021": true,
     "node": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 8
   },
   "extends": ["eslint:recommended", "prettier"],
   "rules": {

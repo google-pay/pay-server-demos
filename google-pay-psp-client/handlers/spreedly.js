@@ -38,20 +38,24 @@ module.exports = (config, order) => {
   // });
 
   return new Promise((resolve, reject) => {
-    client.purchase.create(config.gatewayToken, {
-      transaction: {
-        amount: order.totalInt,
-        currency_code: order.currency,
-        google_pay: {
-          payment_data: order.paymentToken,
+    client.purchase.create(
+      config.gatewayToken,
+      {
+        transaction: {
+          amount: order.totalInt,
+          currency_code: order.currency,
+          google_pay: {
+            payment_data: order.paymentToken,
+          },
         },
-      }
-    }, function (error, response) {
-      if (!error) {
-        resolve(response);
-      } else {
-        reject(error);
-      }
-    });
+      },
+      function (error, response) {
+        if (!error) {
+          resolve(response);
+        } else {
+          reject(error);
+        }
+      },
+    );
   });
 };

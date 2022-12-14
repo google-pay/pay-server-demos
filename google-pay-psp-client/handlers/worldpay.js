@@ -26,9 +26,9 @@ const createXml = (config, order) => `<?xml version="1.0" encoding="UTF-8"?>
             <amount value="${order.totalInt}" currencyCode="${order.currency}" exponent="2"/>
             <paymentDetails>
                 <PAYWITHGOOGLE-SSL>
-                    <protocolVersion>${ order.paymentToken.protocolVersion}</protocolVersion>
-                    <signature>${ order.paymentToken.signature}</signature>
-                    <signedMessage>${ order.paymentToken.signedMessage}</signedMessage>
+                    <protocolVersion>${order.paymentToken.protocolVersion}</protocolVersion>
+                    <signature>${order.paymentToken.signature}</signature>
+                    <signedMessage>${order.paymentToken.signedMessage}</signedMessage>
                 </PAYWITHGOOGLE-SSL>
             </paymentDetails>
         </order>
@@ -40,25 +40,28 @@ module.exports = (config, order) => {
   // https://developer.worldpay.com/docs/wpg/directintegration/quickstart
 
   return new Promise((resolve, reject) => {
-    request({
-      method: 'POST',
-      url: config.url,
-      body: createXml(config, order),
-      headers: {'content-type': 'text/xml'},
-      auth: {username: config.newUsername, password: config.xmlPassword}
-    }, (error, response, body) => {
-      if (!error) {
-        xml2js(body, (err, json) => {
-          json = json.paymentService.reply[0];
-          if (!json.error) {
-            resolve(json);
-          } else {
-            reject(json);
-          }
-        });
-      } else {
-        reject(error);
-      }
-    });
+    request(
+      {
+        method: 'POST',
+        url: config.url,
+        body: createXml(config, order),
+        headers: { 'content-type': 'text/xml' },
+        auth: { username: config.newUsername, password: config.xmlPassword },
+      },
+      (error, response, body) => {
+        if (!error) {
+          xml2js(body, (err, json) => {
+            json = json.paymentService.reply[0];
+            if (!json.error) {
+              resolve(json);
+            } else {
+              reject(json);
+            }
+          });
+        } else {
+          reject(error);
+        }
+      },
+    );
   });
 };

@@ -21,7 +21,12 @@ const client = require('./index.js').braintree;
 [
   ['client requires config', undefined, undefined, 'config not provided'],
   ['client requires order', {}, undefined, 'order not provided'],
-  ['client requires numeric order total', {}, { total: 'x' }, 'order total is not numeric'],
+  [
+    'client requires numeric order total',
+    {},
+    { total: 'x' },
+    'order contains neither numeric total, or items with numeric price',
+  ],
   ['client requires valid currency', {}, { total: 1, currency: 'foo' }, 'invalid currency provided'],
   ['client requires paymentToken', {}, { total: 1, currency: 'USD' }, 'paymentToken not provided'],
 ].forEach(item => {

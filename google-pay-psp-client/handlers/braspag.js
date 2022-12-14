@@ -26,15 +26,15 @@ module.exports = (config, order) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      MerchantId: config.merchantId,
-      MerchantKey: config.merchantKey,
+      'MerchantId': config.merchantId,
+      'MerchantKey': config.merchantKey,
     },
     body: JSON.stringify({
       MerchantOrderId: order.id,
       Customer: {
         Name: order.email,
       },
-      Payment:{
+      Payment: {
         Type: 'CreditCard',
         Amount: order.totalInt,
         Provider: 'Cielo',
@@ -45,18 +45,20 @@ module.exports = (config, order) => {
           WalletKey: order.paymentToken.signedMessage,
           AdditionalData: {
             Signature: order.paymentToken.signature,
-          }
-        }
-      }
+          },
+        },
+      },
     }),
-  }).then(response => {
-    ok = response.ok;
-    return response.json()
-  }).then(response => {
-    if (ok) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  });
+  })
+    .then(response => {
+      ok = response.ok;
+      return response.json();
+    })
+    .then(response => {
+      if (ok) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };
