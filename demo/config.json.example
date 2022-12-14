@@ -228,5 +228,18 @@
       "gateway": "ecommpay",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://developer.novalnet.de/onlinepayments/aboutgooglepay
+  "novalnet": {
+    "testMode": true, // false for production
+    "paymentAccessKey": "",
+    "apiSignature": "",
+    "tariffId": "",
+    "clientConfig": {
+      "gateway": "novalnet",
+      "gatewayMerchantId": ""
+    }
   }
 }

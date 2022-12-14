@@ -1,10 +1,10 @@
 # Google Pay Server Demos
 
 This project demonstrates integrating Google Pay with various Payments Service Providers (PSPs), using JavaScript and
-Node.js. It consists of two parts: a client library that wraps each of the PSP server-side integrations, and a demo app
-that demonstrates end to end integration for each PSP.
+Node.js. It consists of two parts: a client library that wraps each of the PSP server-side APIs, and a demo app
+that demonstrates end to end integration for any of the included PSPs.
 
-If you're just interested in sample code for your PSP, go straight to the `google-pay-psp-client/handlers` directory,
+If you're just interested in sample code for a particular PSP, go straight to the `google-pay-psp-client/handlers` directory,
 where you'll find server-side samples for each PSP.
 
 ## Demo App
@@ -21,7 +21,7 @@ PSP.
 
 ## Client Library
 
-The `google-pay-psp-client` directory contains a client library that wraps each of the PSP server-side integrations.
+The `google-pay-psp-client` directory contains a client library that wraps each of the PSP server-side APIs.
 
 **Example:**
 
@@ -67,6 +67,7 @@ clients.braintree
 - [Cybersource](https://docs.cybersource.com/en/payments-tech-docs/googlepay.html)
 - [Datatrans](https://docs.datatrans.ch/docs/payment-methods#section-google-pay)
 - [Ecommpay](https://developers.ecommpay.com/en/pm_googlepay.html)
+- [Novalnet](https://developer.novalnet.de/onlinepayments/aboutgooglepay)
 - [Payeezy (Fiserv / First Data)](https://github.com/payeezy/get_started_with_payeezy)
 - [PayU](https://developers.payu.com/en/google_pay.html)
 - [Solid](https://dev.solidgate.com/developers/documentation/introduction/Host-to-host-API)

@@ -35,8 +35,16 @@ fs.readdirSync(handlers).forEach(file => {
         if (!order.paymentToken && order.paymentResponse) {
           order.paymentToken = order.paymentResponse.paymentMethodData.tokenizationData.token;
         }
+
         if (!order.email && order.paymentResponse) {
           order.email = order.paymentResponse.email;
+        }
+
+        if (!order.billingAddress && order.paymentResponse) {
+          order.billingAddress = order.paymentResponse.paymentMethodData.info.billingAddress;
+          if (order.billingAddress) {
+            order.billingAddress.street = [order.billingAddress.address1, order.billingAddress.address2, order.billingAddress.address3].filter(s => s.length > 0).join(' ');
+          }
         }
 
         validate(typeof config !== 'object', 'config not provided');

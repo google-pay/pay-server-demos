@@ -38,6 +38,10 @@ const googlePayBaseConfiguration = {
       parameters: {
         allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
         allowedCardNetworks: ['AMEX', 'DISCOVER', 'INTERAC', 'JCB', 'MASTERCARD', 'VISA'],
+        billingAddressRequired: true,
+        billingAddressParameters: {
+          format: 'FULL',
+        },
       },
       tokenizationSpecification: {
         type: 'PAYMENT_GATEWAY',
