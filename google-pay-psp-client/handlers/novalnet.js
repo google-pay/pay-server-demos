@@ -57,9 +57,9 @@ module.exports = (config, order) => {
         amount: order.totalInt,
         currency: order.currency,
         order_no: order.id,
-      },
-      payment_data: {
-        wallet_token: JSON.stringify(order.paymentToken),
+        payment_data: {
+          wallet_data: JSON.stringify(order.paymentToken),
+        },
       },
     }),
   }).then(response => {

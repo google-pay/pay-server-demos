@@ -41,7 +41,7 @@ module.exports = (config, order) => {
         Installments: 1,
         Currency: order.currencyCode,
         Wallet: {
-          Type: 'GooglePay',
+          Type: 'AndroidPay',
           WalletKey: order.paymentToken.signedMessage,
           AdditionalData: {
             Signature: order.paymentToken.signature,
