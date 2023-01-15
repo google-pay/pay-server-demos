@@ -32,6 +32,15 @@ fs.readdirSync(handlers).forEach(file => {
           if (condition) reject({ error: message });
         };
 
+        validate(typeof config !== 'object', 'config not provided');
+        validate(typeof order !== 'object', 'order not provided');
+        validate(
+          isNaN(order.total) && (!order.items || isNaN(order.items[0].price)),
+          'order contains neither numeric total, or items with numeric price',
+        );
+        validate(!precisions[order.currency], 'invalid currency provided');
+        validate(!order.paymentToken, 'paymentToken not provided');
+
         if (!order.paymentToken && order.paymentResponse) {
           order.paymentToken = order.paymentResponse.paymentMethodData.tokenizationData.token;
         }
@@ -43,17 +52,17 @@ fs.readdirSync(handlers).forEach(file => {
         if (!order.billingAddress && order.paymentResponse) {
           order.billingAddress = order.paymentResponse.paymentMethodData.info.billingAddress;
           if (order.billingAddress) {
-            order.billingAddress.street = [order.billingAddress.address1, order.billingAddress.address2, order.billingAddress.address3].filter(s => s.length > 0).join(' ');
+            order.billingAddress.street = [
+              order.billingAddress.address1,
+              order.billingAddress.address2,
+              order.billingAddress.address3,
+            ]
+              .filter(s => s.length > 0)
+              .join(' ');
           }
         }
 
-        validate(typeof config !== 'object', 'config not provided');
-        validate(typeof order !== 'object', 'order not provided');
-        validate(isNaN(order.total) && (!order.items || isNaN(order.items[0].price)), 'order contains neither numeric total, or items with numeric price');
-        validate(!precisions[order.currency], 'invalid currency provided');
-        validate(!order.paymentToken, 'paymentToken not provided');
-
-        const withTotals = (obj) => {
+        const withTotals = obj => {
           const total = Number(obj.total || obj.price * obj.quantity);
           obj.totalInt = Math.round(total * Math.pow(10, precisions[order.currency]));
           obj.totalFixed = total.toFixed(precisions[order.currency]);

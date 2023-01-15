@@ -22,7 +22,7 @@ module.exports = (config, order) => {
 
   const client = new Barion({
     POSKey: config.posKey,
-    Environment: config.environment
+    Environment: config.environment,
   });
 
   const url = `${order.request.protocol}://${order.request.hostname}${order.request.originalUrl}`;
@@ -35,18 +35,20 @@ module.exports = (config, order) => {
     GooglePayToken: JSON.stringify(order.paymentToken),
     RedirectUrl: url,
     CallbackUrl: url,
-    Transactions: [{
-      POSTransactionId: order.id,
-      Payee: order.email,
-      Total: order.totalInt,
-      Items: order.items.map(item => ({
-        Name: item.title,
-        Description: item.title,
-        Unit: item.title,
-        Quantity: item.quantity,
-        UnitPrice: item.totalInt,
-        ItemTotal: item.totalInt * item.quantity,
-      })),
-    }],
+    Transactions: [
+      {
+        POSTransactionId: order.id,
+        Payee: order.email,
+        Total: order.totalInt,
+        Items: order.items.map(item => ({
+          Name: item.title,
+          Description: item.title,
+          Unit: item.title,
+          Quantity: item.quantity,
+          UnitPrice: item.totalInt,
+          ItemTotal: item.totalInt * item.quantity,
+        })),
+      },
+    ],
   });
 };

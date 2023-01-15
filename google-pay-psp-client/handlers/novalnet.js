@@ -62,14 +62,16 @@ module.exports = (config, order) => {
         },
       },
     }),
-  }).then(response => {
-    ok = response.ok;
-    return response.json()
-  }).then(response => {
-    if (ok) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  });
+  })
+    .then(response => {
+      ok = response.ok;
+      return response.json();
+    })
+    .then(response => {
+      if (ok) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };

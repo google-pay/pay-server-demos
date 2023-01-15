@@ -22,11 +22,11 @@ module.exports = (config, order) => {
 
   let ok;
 
-  return fetch(`https://gateway.bepaid.by/transactions/payments`, {
+  return fetch('https://gateway.bepaid.by/transactions/payments', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Basic ' + Buffer.from(`${config.shopId}:${config.secretKey}`).toString('base64'),
+      'Authorization': 'Basic ' + Buffer.from(`${config.shopId}:${config.secretKey}`).toString('base64'),
     },
     body: JSON.stringify({
       request: {
@@ -36,18 +36,20 @@ module.exports = (config, order) => {
         description: `Order ${order.id}`,
         tracking_id: order.id,
         credit_card: {
-          token: '$begateway_google_pay_1_0_0$' + Buffer.from(JSON.stringify(order.paymentToken)).toString('base64')
-        }
-      }
+          token: '$begateway_google_pay_1_0_0$' + Buffer.from(JSON.stringify(order.paymentToken)).toString('base64'),
+        },
+      },
     }),
-  }).then(response => {
-    ok = response.ok;
-    return response.json()
-  }).then(response => {
-    if (ok) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  });
+  })
+    .then(response => {
+      ok = response.ok;
+      return response.json();
+    })
+    .then(response => {
+      if (ok) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };

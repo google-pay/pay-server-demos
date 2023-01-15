@@ -50,6 +50,9 @@ build/Release
 # Dependency directories
 node_modules/
 
+# IntelliJ IDEA
+.idea
+
 # Optional npm cache directory
 .npm
 

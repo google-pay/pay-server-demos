@@ -22,11 +22,11 @@ module.exports = (config, order) => {
 
   let ok;
 
-  return fetch(`https://sandbox.bluesnap.com/services/2/transactions`, {
+  return fetch('https://sandbox.bluesnap.com/services/2/transactions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Basic ' + Buffer.from(`${config.username}:${config.password}`).toString('base64'),
+      'Authorization': 'Basic ' + Buffer.from(`${config.username}:${config.password}`).toString('base64'),
     },
     body: JSON.stringify({
       cardTransactionType: 'AUTH_CAPTURE',
@@ -34,17 +34,19 @@ module.exports = (config, order) => {
       currency: order.currency,
       wallet: {
         walletType: 'GOOGLE_PAY',
-        encodedPaymentToken: Buffer.from(JSON.stringify(order.paymentResponse)).toString('base64')
-      }
+        encodedPaymentToken: Buffer.from(JSON.stringify(order.paymentResponse)).toString('base64'),
+      },
     }),
-  }).then(response => {
-    ok = response.ok;
-    return response.json()
-  }).then(response => {
-    if (ok) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  });
+  })
+    .then(response => {
+      ok = response.ok;
+      return response.json();
+    })
+    .then(response => {
+      if (ok) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };
