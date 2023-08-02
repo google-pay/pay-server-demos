@@ -14,17 +14,17 @@
     "pretty": "prettier . --write --loglevel warn"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "google-pay-psp-client": "file:google-pay-psp-client",
     "request-ip": "^3.3.0",
     "strip-json-comments": "^3.1.1"
   },
   "devDependencies": {
-    "eslint": "^8.3.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jest": "^25.3.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-jest": "^25.7.0",
     "prettier": "2.5.1"
   }
 }
