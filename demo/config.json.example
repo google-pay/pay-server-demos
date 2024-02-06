@@ -87,19 +87,6 @@
   },
 
   // See PSP's docs for full config details:
-  // https://github.com/payeezy/get_started_with_payeezy
-  "payeezy": {
-    "host": "api-cert.payeezy.com", // change for production
-    "apiKey": "",
-    "apiSecret": "",
-    "merchantToken": "",
-    "clientConfig": {
-      "gateway": "firstdata",
-      "gatewayMerchantId": ""
-    }
-  },
-
-  // See PSP's docs for full config details:
   // https://developers.payu.com/en/google_pay.html
   "payu": {
     "environment": "test", // empty for production
