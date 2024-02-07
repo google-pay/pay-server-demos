@@ -13,6 +13,7 @@
     "node-barion": "github:stephenmcd/node-barion#googlepay",
     "node-fetch": "^2.6.12",
     "nodejs-payu-sdk": "^1.0.2",
+    "request": "^2.88.2",
     "shortid": "^2.2.16",
     "spreedly-api": "^0.0.7",
     "square": "^9.1.0",
