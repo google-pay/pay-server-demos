@@ -55,7 +55,7 @@ module.exports = (config, order) => {
     })
     .then(response => {
       if (ok) {
-        xml2js(body, (err, json) => {
+        xml2js(response, (err, json) => {
           json = json.paymentService.reply[0];
           if (!json.error) {
             Promise.resolve(json);
