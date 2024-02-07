@@ -44,7 +44,7 @@ module.exports = (config, order) => {
   return fetch(config.url, {
     method: 'POST',
     headers: {
-      'content-type': 'text/xml' ,
+      'content-type': 'text/xml',
       'Authorization': 'Basic ' + Buffer.from(`${config.newUsername}:${config.xmlPassword}`).toString('base64'),
     },
     body: createXml(config, order),
