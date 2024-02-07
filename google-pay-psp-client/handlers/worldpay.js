@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-const request = require('request');
+const fetch = require('node-fetch');
 const xml2js = require('xml2js').parseString;
 
 const createXml = (config, order) => `<?xml version="1.0" encoding="UTF-8"?>
@@ -39,29 +39,32 @@ module.exports = (config, order) => {
   // See PSP's docs for full API details:
   // https://developer.worldpay.com/docs/wpg/directintegration/quickstart
 
-  return new Promise((resolve, reject) => {
-    request(
-      {
-        method: 'POST',
-        url: config.url,
-        body: createXml(config, order),
-        headers: { 'content-type': 'text/xml' },
-        auth: { username: config.newUsername, password: config.xmlPassword },
-      },
-      (error, response, body) => {
-        if (!error) {
-          xml2js(body, (err, json) => {
-            json = json.paymentService.reply[0];
-            if (!json.error) {
-              resolve(json);
-            } else {
-              reject(json);
-            }
-          });
-        } else {
-          reject(error);
-        }
-      },
-    );
-  });
+  let ok;
+
+  return fetch(config.url, {
+    method: 'POST',
+    headers: {
+      'content-type': 'text/xml' ,
+      'Authorization': 'Basic ' + Buffer.from(`${config.newUsername}:${config.xmlPassword}`).toString('base64'),
+    },
+    body: createXml(config, order),
+  })
+    .then(response => {
+      ok = response.ok;
+      return response.json();
+    })
+    .then(response => {
+      if (ok) {
+        xml2js(body, (err, json) => {
+          json = json.paymentService.reply[0];
+          if (!json.error) {
+            Promise.resolve(json);
+          } else {
+            Promise.reject(json);
+          }
+        });
+      } else {
+        return Promise.reject(response);
+      }
+    });
 };
