@@ -28,65 +28,72 @@ fs.readdirSync(handlers).forEach(file => {
   module.exports[name] = {
     pay: (config, order) =>
       new Promise((resolve, reject) => {
-        const validate = (condition, message) => {
-          if (condition) reject({ error: message });
-        };
+        try {
+          const validate = (condition, message) => {
+            if (condition) {
+              throw { error: message };
+            }
+          };
 
-        validate(typeof config !== 'object', 'config not provided');
-        validate(typeof order !== 'object', 'order not provided');
-        validate(
-          isNaN(order.total) && (!order.items || isNaN(order.items[0].price)),
-          'order contains neither numeric total, or items with numeric price',
-        );
-        validate(!precisions[order.currency], 'invalid currency provided');
-        validate(!order.paymentToken, 'paymentToken not provided');
+          validate(typeof config !== 'object', 'config not provided');
+          validate(typeof order !== 'object', 'order not provided');
 
-        if (!order.paymentToken && order.paymentResponse) {
-          order.paymentToken = order.paymentResponse.paymentMethodData.tokenizationData.token;
-        }
-
-        if (!order.email && order.paymentResponse) {
-          order.email = order.paymentResponse.email;
-        }
-
-        if (!order.billingAddress && order.paymentResponse) {
-          order.billingAddress = order.paymentResponse.paymentMethodData.info.billingAddress;
-          if (order.billingAddress) {
-            order.billingAddress.street = [
-              order.billingAddress.address1,
-              order.billingAddress.address2,
-              order.billingAddress.address3,
-            ]
-              .filter(s => s.length > 0)
-              .join(' ');
+          if (!order.paymentToken && order.paymentResponse) {
+            order.paymentToken = order.paymentResponse.paymentMethodData.tokenizationData.token;
           }
-        }
 
-        const withTotals = obj => {
-          const total = Number(obj.total || obj.price * obj.quantity);
-          obj.totalInt = Math.round(total * Math.pow(10, precisions[order.currency]));
-          obj.totalFixed = total.toFixed(precisions[order.currency]);
-          return obj;
-        };
-
-        order.id ||= uuid.v4();
-        order.total ||= order.items.reduce((total, item) => {
-          return total + item.price * item.quantity;
-        }, 0);
-        order.items = !order.items ? [] : order.items.map(withTotals);
-        order.description = order.items.map(item => `${item.quantity} x ${item.title}`).join(', ');
-        order = withTotals(order);
-
-        if (typeof order.paymentToken === 'string') {
-          try {
-            const paymentToken = JSON.parse(order.paymentToken);
-            order.paymentToken = paymentToken;
-          } catch (ex) {
-            // handle error as required
+          if (!order.email && order.paymentResponse) {
+            order.email = order.paymentResponse.email;
           }
-        }
 
-        return resolve(handler(config, order));
+          if (!order.billingAddress && order.paymentResponse) {
+            order.billingAddress = order.paymentResponse.paymentMethodData.info.billingAddress;
+            if (order.billingAddress) {
+              order.billingAddress.street = [
+                order.billingAddress.address1,
+                order.billingAddress.address2,
+                order.billingAddress.address3,
+              ]
+                .filter(s => s.length > 0)
+                .join(' ');
+            }
+          }
+
+          validate(
+            isNaN(order.total) && (!order.items || isNaN(order.items[0].price)),
+            'order contains neither numeric total, or items with numeric price',
+          );
+          validate(!precisions[order.currency], 'invalid currency provided');
+          validate(!order.paymentToken, 'paymentToken not provided');
+
+          const withTotals = obj => {
+            const total = Number(obj.total || obj.price * obj.quantity);
+            obj.totalInt = Math.round(total * Math.pow(10, precisions[order.currency]));
+            obj.totalFixed = total.toFixed(precisions[order.currency]);
+            return obj;
+          };
+
+          order.id ||= uuid.v4();
+          order.total ||= order.items.reduce((total, item) => {
+            return total + item.price * item.quantity;
+          }, 0);
+          order.items = !order.items ? [] : order.items.map(withTotals);
+          order.description = order.items.map(item => `${item.quantity} x ${item.title}`).join(', ');
+          order = withTotals(order);
+
+          if (typeof order.paymentToken === 'string') {
+            try {
+              const paymentToken = JSON.parse(order.paymentToken);
+              order.paymentToken = paymentToken;
+            } catch (ex) {
+              // handle error as required
+            }
+          }
+
+          return resolve(handler(config, order));
+        } catch (err) {
+          return reject(err);
+        }
       }),
 
     stringify: object => {

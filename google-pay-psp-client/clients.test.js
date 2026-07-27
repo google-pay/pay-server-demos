@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
+const mockStripe = jest.fn().mockImplementation((config, order) => {
+  return Promise.resolve({ success: true });
+});
+jest.mock('./handlers/stripe.js', () => mockStripe);
+
 const client = require('./index.js').braintree;
+const stripeClient = require('./index.js').stripe;
 
 // Each array item is a test case expecting an error:
 // description, config arg, order arg, expected error.
@@ -32,5 +38,56 @@ const client = require('./index.js').braintree;
 ].forEach(item => {
   test(item[0], () => {
     return expect(client.pay(item[1], item[2])).rejects.toHaveProperty('error', item[3]);
+  });
+});
+
+describe('Validation flow and phantom charges prevention', () => {
+  beforeEach(() => {
+    mockStripe.mockClear();
+  });
+
+  test('should not invoke handler if config is missing', async () => {
+    await expect(stripeClient.pay(undefined, {})).rejects.toHaveProperty('error', 'config not provided');
+    expect(mockStripe).not.toHaveBeenCalled();
+  });
+
+  test('should not invoke handler if order has an invalid currency', async () => {
+    await expect(stripeClient.pay({}, { total: 10, currency: 'invalid' })).rejects.toHaveProperty(
+      'error',
+      'invalid currency provided',
+    );
+    expect(mockStripe).not.toHaveBeenCalled();
+  });
+
+  test('should successfully extract paymentToken from paymentResponse and invoke handler', async () => {
+    const config = { secretKey: 'sk_test_123' };
+    const order = {
+      total: 10,
+      currency: 'USD',
+      paymentResponse: {
+        paymentMethodData: {
+          tokenizationData: {
+            token: '{"id": "tok_123"}',
+          },
+          info: {
+            billingAddress: {
+              address1: '123 Main St',
+              address2: 'Suite 100',
+              address3: '',
+            },
+          },
+        },
+        email: 'customer@example.com',
+      },
+    };
+
+    const result = await stripeClient.pay(config, order);
+    expect(result).toEqual({ success: true });
+    expect(mockStripe).toHaveBeenCalledTimes(1);
+    const [passedConfig, passedOrder] = mockStripe.mock.calls[0];
+    expect(passedConfig).toEqual(config);
+    expect(passedOrder.paymentToken).toEqual({ id: 'tok_123' });
+    expect(passedOrder.email).toEqual('customer@example.com');
+    expect(passedOrder.billingAddress.street).toEqual('123 Main St Suite 100');
   });
 });
