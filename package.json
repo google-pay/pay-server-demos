@@ -14,7 +14,7 @@
     "pretty": "prettier . --write --loglevel warn"
   },
   "dependencies": {
-    "body-parser": "^2.2.1",
+    "body-parser": "^2.3.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "google-pay-psp-client": "file:google-pay-psp-client",
