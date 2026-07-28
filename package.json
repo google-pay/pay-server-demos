@@ -26,5 +26,11 @@
     "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-jest": "^25.7.0",
     "prettier": "2.5.1"
+  },
+  "overrides": {
+    "form-data": "2.5.4",
+    "request": {
+      "form-data": "2.5.4"
+    }
   }
 }
