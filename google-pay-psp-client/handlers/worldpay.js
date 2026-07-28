@@ -17,18 +17,32 @@
 const fetch = require('node-fetch');
 const xml2js = require('xml2js').parseString;
 
+const escapeXml = unsafe => {
+  if (unsafe === undefined || unsafe === null) {
+    return '';
+  }
+  return String(unsafe).replace(/[<>&'"]/g, c => {
+    if (c === '<') return '&lt;';
+    if (c === '>') return '&gt;';
+    if (c === '&') return '&amp;';
+    if (c.charCodeAt(0) === 39) return '&apos;';
+    if (c.charCodeAt(0) === 34) return '&quot;';
+    return c;
+  });
+};
+
 const createXml = (config, order) => `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE paymentService PUBLIC "-//WorldPay/DTD WorldPay PaymentService v1//EN" "http://dtd.worldpay.com/paymentService_v1.dtd">
-<paymentService version="1.4" merchantCode="${config.merchantCode}">
+<paymentService version="1.4" merchantCode="${escapeXml(config.merchantCode)}">
     <submit>
-        <order orderCode="${order.id}">
-            <description>${order.description}</description>
-            <amount value="${order.totalInt}" currencyCode="${order.currency}" exponent="2"/>
+        <order orderCode="${escapeXml(order.id)}">
+            <description>${escapeXml(order.description)}</description>
+            <amount value="${escapeXml(order.totalInt)}" currencyCode="${escapeXml(order.currency)}" exponent="2"/>
             <paymentDetails>
                 <PAYWITHGOOGLE-SSL>
-                    <protocolVersion>${order.paymentToken.protocolVersion}</protocolVersion>
-                    <signature>${order.paymentToken.signature}</signature>
-                    <signedMessage>${order.paymentToken.signedMessage}</signedMessage>
+                    <protocolVersion>${escapeXml(order.paymentToken.protocolVersion)}</protocolVersion>
+                    <signature>${escapeXml(order.paymentToken.signature)}</signature>
+                    <signedMessage>${escapeXml(order.paymentToken.signedMessage)}</signedMessage>
                 </PAYWITHGOOGLE-SSL>
             </paymentDetails>
         </order>

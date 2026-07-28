@@ -19,6 +19,14 @@ const mockStripe = jest.fn().mockImplementation((config, order) => {
 });
 jest.mock('./handlers/stripe.js', () => mockStripe);
 
+const mockFetch = jest.fn().mockImplementation(() => {
+  return Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve('<paymentService><reply><success/></reply></paymentService>'),
+  });
+});
+jest.mock('node-fetch', () => mockFetch);
+
 const client = require('./index.js').braintree;
 const stripeClient = require('./index.js').stripe;
 
@@ -89,5 +97,65 @@ describe('Validation flow and phantom charges prevention', () => {
     expect(passedOrder.paymentToken).toEqual({ id: 'tok_123' });
     expect(passedOrder.email).toEqual('customer@example.com');
     expect(passedOrder.billingAddress.street).toEqual('123 Main St Suite 100');
+  });
+});
+
+describe('Worldpay handler XML injection prevention', () => {
+  const worldpayClient = require('./index.js').worldpay;
+
+  beforeEach(() => {
+    mockFetch.mockClear();
+  });
+
+  test('should escape special XML characters in order description and paymentToken fields', async () => {
+    const config = {
+      merchantCode: 'MERCHANT123',
+      newUsername: 'user',
+      xmlPassword: 'pass',
+      url: 'https://secure-test.worldpay.com/jsp/merchant/xml/paymentService.jsp',
+    };
+
+    const order = {
+      id: 'order-123',
+      total: 10,
+      currency: 'USD',
+      items: [
+        {
+          title: '</description><amount value="1" currencyCode="USD" exponent="2"/><description>',
+          quantity: 1,
+          price: 10,
+        },
+      ],
+      paymentToken: {
+        protocolVersion: '<injected-protocol>',
+        signature: 'signature&signature',
+        signedMessage: 'message"with"quotes',
+      },
+    };
+
+    try {
+      await worldpayClient.pay(config, order);
+    } catch (e) {
+      // Ignore potential xml2js parsing errors from mock return
+    }
+
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    const [passedUrl, passedOptions] = mockFetch.mock.calls[0];
+    expect(passedUrl).toBe(config.url);
+    expect(passedOptions.method).toBe('POST');
+
+    const xmlBody = passedOptions.body;
+
+    // The injected elements should be escaped
+    expect(xmlBody).not.toContain('</description><amount value="1"');
+    expect(xmlBody).not.toContain('<injected-protocol>');
+    expect(xmlBody).not.toContain('signature&signature');
+    expect(xmlBody).not.toContain('message"with"quotes');
+
+    // Instead, they should be present in their escaped forms
+    expect(xmlBody).toContain('&lt;/description&gt;&lt;amount value=&quot;1&quot;');
+    expect(xmlBody).toContain('&lt;injected-protocol&gt;');
+    expect(xmlBody).toContain('signature&amp;signature');
+    expect(xmlBody).toContain('message&quot;with&quot;quotes');
   });
 });
