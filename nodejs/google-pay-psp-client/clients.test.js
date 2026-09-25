@@ -39,7 +39,7 @@ const stripeClient = require('./index.js').stripe;
     'client requires numeric order total',
     {},
     { total: 'x' },
-    'order contains neither numeric total, or items with numeric price',
+    'order contains neither numeric total, nor items with numeric price',
   ],
   ['client requires valid currency', {}, { total: 1, currency: 'foo' }, 'invalid currency provided'],
   ['client requires paymentToken', {}, { total: 1, currency: 'USD' }, 'paymentToken not provided'],
@@ -49,7 +49,7 @@ const stripeClient = require('./index.js').stripe;
   });
 });
 
-describe('Validation flow and phantom charges prevention', () => {
+describe('Validation flow', () => {
   beforeEach(() => {
     mockStripe.mockClear();
   });

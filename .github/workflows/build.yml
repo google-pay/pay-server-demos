@@ -16,6 +16,9 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+        python-version: [3.9]
+        go-version: [1.21]
+        java-version: [17]
 
     steps:
       - uses: actions/checkout@v3
@@ -23,13 +26,45 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run lint
-      - name: npm install (google-pay-psp-client)
+      - name: Use Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Use Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Use Java ${{ matrix.java-version }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
+
+      - name: Lint (Node.js formatting)
         run: |
-          cd google-pay-psp-client
+          cd nodejs
           npm install
-      - name: npm test (google-pay-psp-client)
+          npm run lint
+
+      - name: Test Node.js
         run: |
-          cd google-pay-psp-client
+          cd nodejs/google-pay-psp-client
+          npm install
           npm test
+
+      - name: Test Python
+        run: |
+          cd python
+          pip install -r requirements.txt
+          python -m unittest discover -s tests
+
+      - name: Test Go
+        run: |
+          cd go
+          go test ./...
+
+      - name: Test Java
+        run: |
+          cd java
+          mvn test
+

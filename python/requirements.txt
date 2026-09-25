@@ -1,0 +1,4 @@
+Adyen>=15.0.2
+checkout-sdk>=3.4.4
+squareup>=33.0.0
+stripe>=15.5.1

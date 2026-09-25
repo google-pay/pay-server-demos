@@ -61,7 +61,7 @@ fs.readdirSync(handlers).forEach(file => {
 
           validate(
             isNaN(order.total) && (!order.items || isNaN(order.items[0].price)),
-            'order contains neither numeric total, or items with numeric price',
+            'order contains neither numeric total, nor items with numeric price',
           );
           validate(!precisions[order.currency], 'invalid currency provided');
           validate(!order.paymentToken, 'paymentToken not provided');
