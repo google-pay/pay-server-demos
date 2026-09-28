@@ -68,7 +68,7 @@ final class OrderProcessor {
     boolean hasNumericItemPrice =
         order.items != null && !order.items.isEmpty() && order.items.get(0).price != null;
     if (!hasNumericTotal && !hasNumericItemPrice) {
-      throw new PspValidationException("order contains neither numeric total, or items with numeric price");
+      throw new PspValidationException("order contains neither numeric total, nor items with numeric price");
     }
 
     Integer precision = Precisions.get(order.currency);

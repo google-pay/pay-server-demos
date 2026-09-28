@@ -9,36 +9,32 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-        python-version: [3.9]
-        go-version: [1.21]
-        java-version: [17]
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Use Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+          node-version: '18.x'
+      - name: Use Python 3.9
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Use Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v4
+          python-version: '3.9'
+      - name: Use Go 1.21
+        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
         with:
-          go-version: ${{ matrix.go-version }}
-      - name: Use Java ${{ matrix.java-version }}
-        uses: actions/setup-java@v3
+          go-version: '1.21'
+      - name: Use Java 17
+        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
         with:
           distribution: 'temurin'
-          java-version: ${{ matrix.java-version }}
+          java-version: '17'
 
       - name: Lint (Node.js formatting)
         run: |
