@@ -14,7 +14,7 @@
     "pretty": "prettier . --write --loglevel warn"
   },
   "dependencies": {
-    "axios": "^1.8.2",
+    "axios": "^1.20.0",
     "body-parser": "^2.3.0",
     "cors": "^2.8.5",
     "express": "^5.2.0",
