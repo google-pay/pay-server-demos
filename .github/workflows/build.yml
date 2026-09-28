@@ -9,27 +9,58 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run lint
-      - name: npm install (google-pay-psp-client)
+          node-version: '18.x'
+      - name: Use Python 3.9
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+        with:
+          python-version: '3.9'
+      - name: Use Go 1.21
+        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
+        with:
+          go-version: '1.21'
+      - name: Use Java 17
+        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Lint (Node.js formatting)
         run: |
-          cd google-pay-psp-client
+          cd nodejs
           npm install
-      - name: npm test (google-pay-psp-client)
+          npm run lint
+
+      - name: Test Node.js
         run: |
-          cd google-pay-psp-client
+          cd nodejs/google-pay-psp-client
+          npm install
           npm test
+
+      - name: Test Python
+        run: |
+          cd python
+          pip install -r requirements.txt
+          python -m unittest discover -s tests
+
+      - name: Test Go
+        run: |
+          cd go
+          go test ./...
+
+      - name: Test Java
+        run: |
+          cd java
+          mvn test
+

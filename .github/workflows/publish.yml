@@ -4,19 +4,22 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: read
+
 jobs:
   publish-npm:
     name: publish to npm
     runs-on: ubuntu-latest
     steps:
       - name: configure wombat dressing repository
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
           node-version: '18.x'
           registry-url: https://wombat-dressing-room.appspot.com
           scope: '@google-pay'
 
       - name: publish @google-pay/psp-client to npm (via wombat dressing)
-        run: cd google-pay-psp-client && npm publish --access=public
+        run: cd nodejs/google-pay-psp-client && npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{secrets.TOKEN_PSP_CLIENT}}
