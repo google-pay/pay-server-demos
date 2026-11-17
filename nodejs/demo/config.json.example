@@ -228,5 +228,15 @@
       "gateway": "novalnet",
       "gatewayMerchantId": ""
     }
+  },
+
+  // See PSP's docs for full config details:
+  // https://docs.monei.com/payment-methods/google-pay
+  "monei": {
+    "apiKey": "", // test mode key for testing
+    "clientConfig": {
+      "gateway": "monei",
+      "gatewayMerchantId": "" // MONEI Account ID
+    }
   }
 }
