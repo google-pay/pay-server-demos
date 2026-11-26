@@ -11,7 +11,7 @@ directory.
 
 | Directory           | Language | PSPs covered                                        |
 | ------------------- | -------- | --------------------------------------------------- |
-| [`nodejs/`](nodejs) | Node.js  | All 19 — see [`nodejs/README.md`](nodejs/README.md) |
+| [`nodejs/`](nodejs) | Node.js  | All 20 — see [`nodejs/README.md`](nodejs/README.md) |
 | [`java/`](java)     | Java     | Adyen, Checkout.com, Square, Stripe                 |
 | [`python/`](python) | Python   | Adyen, Checkout.com, Square, Stripe                 |
 | [`go/`](go)         | Go       | Adyen, Checkout.com, Square, Stripe                 |

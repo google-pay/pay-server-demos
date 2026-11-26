@@ -67,6 +67,7 @@ clients.braintree
 - [Cybersource](https://docs.cybersource.com/en/payments-tech-docs/googlepay.html)
 - [Datatrans](https://docs.datatrans.ch/docs/payment-methods#section-google-pay)
 - [Ecommpay](https://developers.ecommpay.com/en/pm_googlepay.html)
+- [MONEI](https://docs.monei.com/payment-methods/google-pay)
 - [Novalnet](https://developer.novalnet.de/onlinepayments/aboutgooglepay)
 - [PayU](https://developers.payu.com/en/google_pay.html)
 - [Solid](https://dev.solidgate.com/developers/documentation/introduction/Host-to-host-API)
